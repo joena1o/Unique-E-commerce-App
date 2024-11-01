@@ -123,7 +123,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -141,7 +141,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                       ),
                     ),
                     const SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Expanded(
                       child: Container(
