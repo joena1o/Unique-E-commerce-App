@@ -205,119 +205,138 @@ class _HomeScreenState extends State<HomeScreen>
               notchMargin: 0,
               height: 70,
               color: Colors.transparent,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.go('/');
-                    },
-                    child: Column(
-                      children: [
-                        const Icon(Icons.home_filled),
-                        Text("HOME", style: UtilityClass.bottomNavStyleBlack)
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
+              child: Padding(
+                padding: UtilityClass.horizontalPadding,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
                       onTap: () {
-                        context.go('/products');
+                        context.go('/');
                       },
                       child: Column(
                         children: [
-                          const Icon(Icons.storefront),
-                          Text("SHOP", style: UtilityClass.bottomNavStyleBlack)
+                          const Icon(
+                            Icons.home_filled,
+                            size: 28,
+                          ),
+                          Text("HOME", style: UtilityClass.bottomNavStyleBlack)
                         ],
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        showTopSheet(
-                          context,
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      overlayEntry.remove();
-                                    },
-                                    icon: const Icon(Icons.close),
+                      ),
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          context.go('/products');
+                        },
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.storefront,
+                              size: 28,
+                            ),
+                            Text("SHOP",
+                                style: UtilityClass.bottomNavStyleBlack)
+                          ],
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          showTopSheet(
+                            context,
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        overlayEntry.remove();
+                                      },
+                                      icon: const Icon(Icons.close),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: AppColors
-                                              .borderGray, // Border color
-                                          width: 2.0, // Border width
-                                          style:
-                                              BorderStyle.solid, // Border style
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: AppColors
+                                                .borderGray, // Border color
+                                            width: 2.0, // Border width
+                                            style: BorderStyle
+                                                .solid, // Border style
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: TextFormField(
-                                              decoration: InputDecoration(
-                                                  suffixIcon: IconButton(
-                                                    onPressed: () {},
-                                                    icon: const Icon(
-                                                        Icons.search),
-                                                  ),
-                                                  border: InputBorder.none,
-                                                  enabledBorder:
-                                                      InputBorder.none,
-                                                  focusedBorder:
-                                                      InputBorder.none,
-                                                  hintText: "Search..")),
-                                        )
-                                      ],
-                                    )),
-                                Container(height: 200)
-                              ],
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextFormField(
+                                                decoration: InputDecoration(
+                                                    suffixIcon: IconButton(
+                                                      onPressed: () {},
+                                                      icon: const Icon(
+                                                          Icons.search),
+                                                    ),
+                                                    border: InputBorder.none,
+                                                    enabledBorder:
+                                                        InputBorder.none,
+                                                    focusedBorder:
+                                                        InputBorder.none,
+                                                    hintText: "Search..")),
+                                          )
+                                        ],
+                                      )),
+                                  Container(height: 200)
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          const Icon(Icons.search),
-                          Text("SEARCH",
-                              style: UtilityClass.bottomNavStyleBlack)
-                        ],
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        context.go('/account');
-                      },
-                      child: Column(
-                        children: [
-                          const Icon(Icons.person_3_outlined),
-                          Text("ACCOUNT",
-                              style: UtilityClass.bottomNavStyleBlack)
-                        ],
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        context.go('/wishlist');
-                      },
-                      child: Column(
-                        children: [
-                          const Icon(Icons.favorite_border),
-                          Text("WISHLIST",
-                              style: UtilityClass.bottomNavStyleBlack)
-                        ],
-                      ))
-                ],
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.search,
+                              size: 28,
+                            ),
+                            Text("SEARCH",
+                                style: UtilityClass.bottomNavStyleBlack)
+                          ],
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          context.go('/account');
+                        },
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.person_3_outlined,
+                              size: 28,
+                            ),
+                            Text("ACCOUNT",
+                                style: UtilityClass.bottomNavStyleBlack)
+                          ],
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          context.go('/wishlist');
+                        },
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.favorite_border,
+                              size: 28,
+                            ),
+                            Text("WISHLIST",
+                                style: UtilityClass.bottomNavStyleBlack)
+                          ],
+                        ))
+                  ],
+                ),
               ),
             )
           : null,
