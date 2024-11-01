@@ -51,7 +51,7 @@ class _LinksAreaState extends State<LinksArea> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColor: AppColors.lightGray,
                   onExpansionChanged: (bool expanding) {
                     setState(() {});
                   },
@@ -74,8 +74,7 @@ class _LinksAreaState extends State<LinksArea> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  backgroundColor:
-                      Theme.of(context).scaffoldBackgroundColor, // Use th
+                  backgroundColor: AppColors.lightGray, // Use th
                   onExpansionChanged: (bool expanding) {
                     setState(() {});
                   },
@@ -104,7 +103,7 @@ class _LinksAreaState extends State<LinksArea> {
                 ExpansionTile(
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   expandedAlignment: Alignment.centerLeft,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColor: AppColors.lightGray,
                   title: const Text(
                     'Customer Services',
                     style: TextStyle(
@@ -117,7 +116,8 @@ class _LinksAreaState extends State<LinksArea> {
                   children: List.generate(customerServices.length, (index) {
                     return (index != customerServices.length - 1)
                         ? Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
                             child: Text(customerServices[index]),
                           )
                         : Column(
@@ -140,7 +140,7 @@ class _LinksAreaState extends State<LinksArea> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColor: AppColors.lightGray,
                   onExpansionChanged: (bool expanding) {
                     setState(() {});
                   },
