@@ -142,7 +142,10 @@ class UtilityClass {
       borderRadius: BorderRadius.circular(0),
     );
   }
-//Button Container Styles
+//Button Container Styles'
+
+  static TextStyle navFontBlackNoSpace = const TextStyle(
+      fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black);
 
   static TextStyle navFontBlack = const TextStyle(
       fontSize: 12,

@@ -129,11 +129,15 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                   children: [
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(7),
+                        padding: const EdgeInsets.all(2),
                         decoration: UtilityClass.setButtonDecoration(
                             AppColors.inactiveColor!),
                         child: ElevatedButton(
-                            onPressed: () {}, child: const Text("CHECK OUT")),
+                            onPressed: () {},
+                            child: Text(
+                              "CHECK OUT",
+                              style: UtilityClass.buttonStyleWhite,
+                            )),
                       ),
                     ),
                     const SizedBox(
@@ -141,13 +145,13 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                     ),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(7),
+                        padding: const EdgeInsets.all(2),
                         decoration: UtilityClass.buttonDecorationOnlyOutline,
                         child: ElevatedButton(
                             onPressed: () {},
-                            child: const Text(
+                            child: Text(
                               "VIEW CART",
-                              style: TextStyle(color: Colors.black),
+                              style: UtilityClass.buttonStyleBlack,
                             )),
                       ),
                     )

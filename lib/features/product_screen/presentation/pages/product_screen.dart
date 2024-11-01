@@ -259,37 +259,48 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
         Padding(
           padding: UtilityClass.horizontalPadding,
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(Icons.question_mark_rounded),
-                  SizedBox(
+                  const Icon(
+                    Icons.question_mark_rounded,
+                    size: 19,
+                  ),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text("Ask a question")
+                  Text("Ask a question",
+                      style: UtilityClass.navFontBlackNoSpace)
                 ],
               ),
               Row(
                 children: [
-                  Icon(Icons.drive_eta_rounded),
-                  SizedBox(
+                  const Icon(
+                    Icons.drive_eta_rounded,
+                    size: 19,
+                  ),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text("Delivery & Returns")
+                  Text("Delivery & Returns",
+                      style: UtilityClass.navFontBlackNoSpace)
                 ],
               ),
               Row(
                 children: [
-                  Icon(Icons.share),
-                  SizedBox(
+                  const Icon(
+                    Icons.share,
+                    size: 19,
+                  ),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text("Share")
+                  Text("Share", style: UtilityClass.navFontBlackNoSpace)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 50,
               ),
             ],

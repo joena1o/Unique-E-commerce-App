@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen>
       endDrawer: Drawer(
         shape: const RoundedRectangleBorder(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        width: Responsive.getSize(context).width * .8,
+        width: Responsive.getSize(context).width * .85,
         child: EndDrawerItems(
             callback: () => _scaffoldKey.currentState?.closeEndDrawer()),
       ),
