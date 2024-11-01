@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen>
               height: 70,
               color: Colors.transparent,
               child: Padding(
-                padding: UtilityClass.horizontalPadding,
+                padding: EdgeInsets.zero,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
