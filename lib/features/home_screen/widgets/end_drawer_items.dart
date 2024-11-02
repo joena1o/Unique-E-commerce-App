@@ -34,13 +34,13 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
         ),
         Expanded(
             child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemCount: 10,
                 itemBuilder: (BuildContext ctx, int i) {
                   return cartItem();
                 })),
         Container(
-          padding: const EdgeInsets.only(top: 20, bottom: 15),
+          padding: const EdgeInsets.only(top: 20, bottom: 10),
           decoration: BoxDecoration(color: AppColors.lightColor, boxShadow: [
             BoxShadow(
                 color: AppColors.borderGray, blurRadius: 2, spreadRadius: 1)
@@ -49,7 +49,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     children: [
@@ -107,6 +107,8 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Radio(
                       value: 'Option 2',
@@ -117,13 +119,14 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                         });
                       },
                     ),
-                    const Text("I agree to the terms and conditions")
+                    const Expanded(
+                        child: Text("I agree to the terms and conditions"))
                   ],
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -136,7 +139,8 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                             onPressed: () {},
                             child: Text(
                               "CHECK OUT",
-                              style: UtilityClass.buttonStyleWhite,
+                              overflow: TextOverflow.ellipsis,
+                              style: UtilityClass.buttonStyleWhiteNoSpacing,
                             )),
                       ),
                     ),
@@ -151,7 +155,8 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                             onPressed: () {},
                             child: Text(
                               "VIEW CART",
-                              style: UtilityClass.buttonStyleBlack,
+                              overflow: TextOverflow.ellipsis,
+                              style: UtilityClass.infoLabelGray,
                             )),
                       ),
                     )
@@ -199,38 +204,43 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.borderGray)),
                       child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.add,
-                            size: 16,
+                            size: 14,
                           ),
                           SizedBox(
-                            width: 20,
+                            width: 10,
                           ),
                           Text("1"),
                           SizedBox(
-                            width: 20,
+                            width: 10,
                           ),
                           Icon(
                             Icons.exposure_minus_1_sharp,
-                            size: 16,
+                            size: 14,
                           )
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      width: 10,
                     ),
                     TextButton(
                         onPressed: () {},
                         child: const Text(
                           "Remove",
                           style: TextStyle(fontSize: 14),
-                        ))
+                        )),
                   ],
                 ),
               ],

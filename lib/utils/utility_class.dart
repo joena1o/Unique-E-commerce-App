@@ -145,7 +145,7 @@ class UtilityClass {
 //Button Container Styles'
 
   static TextStyle navFontBlackNoSpace = const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black);
+      fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black);
 
   static TextStyle navFontBlack = const TextStyle(
       fontSize: 12,
@@ -203,6 +203,9 @@ class UtilityClass {
       fontWeight: FontWeight.normal,
       letterSpacing: 1.5,
       color: AppColors.lightColor);
+
+  static TextStyle buttonStyleWhiteNoSpacing = TextStyle(
+      fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.lightColor);
 
   static TextStyle buttonStyleWhite = TextStyle(
       fontSize: 14,

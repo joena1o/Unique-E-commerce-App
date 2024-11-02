@@ -152,32 +152,35 @@ class _LinksAreaState extends State<LinksArea> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Wrap(
-                      alignment: WrapAlignment.spaceBetween,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: Responsive.getSize(context).width * .76,
-                          child: const TextField(
-                            decoration: InputDecoration(hintText: "Your Email"),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Expanded(
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(hintText: "Your Email"),
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: Responsive.getSize(context).width * .15,
-                          height: 48,
-                          decoration: UtilityClass.setButtonOutlineDecoration(
-                              AppColors.inactiveColor!),
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Icon(
-                                Icons.arrow_right_alt,
-                                color: Colors.black,
-                              )),
-                        ),
-                      ],
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: 48,
+                            decoration: UtilityClass.setButtonOutlineDecoration(
+                                AppColors.inactiveColor!),
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                child: const Icon(
+                                  Icons.arrow_right_alt,
+                                  size: 20,
+                                  color: Colors.black,
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 20,

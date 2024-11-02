@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen>
       endDrawer: Drawer(
         shape: const RoundedRectangleBorder(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        width: Responsive.getSize(context).width * .85,
+        width: Responsive.getSize(context).width * .9,
         child: EndDrawerItems(
             callback: () => _scaffoldKey.currentState?.closeEndDrawer()),
       ),
@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen>
               height: 70,
               color: Colors.transparent,
               child: Padding(
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
