@@ -1,5 +1,6 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/widgets/product_grid_view.dart';
+import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
@@ -36,7 +37,11 @@ class _ProductTabState extends State<ProductTab> {
           const SizedBox(
             height: 58,
           ),
-          Padding(
+          Container(
+            margin: Responsive.isMobile(context)
+                ? EdgeInsets.zero
+                : EdgeInsets.symmetric(
+                    horizontal: Responsive.getSize(context).width * .05),
             padding: UtilityClass.horizontalAndVerticalPadding,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

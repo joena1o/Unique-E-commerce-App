@@ -5,6 +5,7 @@ import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.productId});
@@ -169,42 +170,44 @@ class _ProductScreenState extends State<ProductScreen> {
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 padding: UtilityClass.horizontalAndVerticalPadding,
-                child: Wrap(
+                child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 10),
+                        height: 47,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             border: Border.all(color: AppColors.borderGray)),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.add,
-                              size: 16,
+                            FaIcon(
+                              FontAwesomeIcons.add,
+                              size: 20,
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
                             Text("1"),
                             SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
-                            Icon(
-                              Icons.exposure_minus_1_sharp,
-                              size: 16,
+                            Text(
+                              "-",
+                              style: TextStyle(fontSize: 30),
                             )
                           ],
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      width: 12,
                     ),
                     Expanded(
                       flex: 2,
                       child: Container(
                         height: 47,
                         padding: const EdgeInsets.all(5),
-                        margin: UtilityClass.horizontalPadding,
                         decoration: UtilityClass.setButtonDecoration(
                             AppColors.darkColor),
                         child: ElevatedButton(
@@ -212,13 +215,16 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: Text(
                               "ADD TO CART",
                               overflow: TextOverflow.ellipsis,
-                              style: UtilityClass.buttonStyleWhite,
+                              style: UtilityClass.buttonStyleWhiteNoSpacing,
                             )),
                       ),
                     ),
+                    const SizedBox(
+                      width: 12,
+                    ),
                     Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 20),
+                        height: 47,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                             border: Border.all(color: AppColors.borderGray)),
                         child: const Icon(
@@ -735,27 +741,6 @@ class _ProductScreenState extends State<ProductScreen> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  "You may also like",
-                  style: UtilityClass.titleStyleBlack,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const SizedBox(
-                  width: 100,
-                  child: Divider(
-                    thickness: 1.5,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const ProductGridView()
               ],
             ),
           );

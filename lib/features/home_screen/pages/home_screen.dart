@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       BorderSide(color: AppColors.borderGray)),
                               color: Colors.white),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 8),
+                              vertical: 10.0, horizontal: 5),
                           child: Row(
                             children: [
                               IconButton(
@@ -202,11 +202,12 @@ class _HomeScreenState extends State<HomeScreen>
           : FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Responsive.isMobile(context)
           ? BottomAppBar(
+              padding: const EdgeInsets.symmetric(vertical: 12),
               notchMargin: 0,
               height: 70,
               color: Colors.transparent,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen>
                         children: [
                           const Icon(
                             Icons.home_filled,
-                            size: 28,
+                            size: 26,
                           ),
                           Text("HOME", style: UtilityClass.bottomNavStyleBlack)
                         ],
@@ -233,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             const Icon(
                               Icons.storefront,
-                              size: 28,
+                              size: 26,
                             ),
                             Text("SHOP",
                                 style: UtilityClass.bottomNavStyleBlack)
@@ -301,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             const Icon(
                               Icons.search,
-                              size: 28,
+                              size: 26,
                             ),
                             Text("SEARCH",
                                 style: UtilityClass.bottomNavStyleBlack)
@@ -315,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             const Icon(
                               Icons.person_3_outlined,
-                              size: 28,
+                              size: 26,
                             ),
                             Text("ACCOUNT",
                                 style: UtilityClass.bottomNavStyleBlack)
@@ -329,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             const Icon(
                               Icons.favorite_border,
-                              size: 28,
+                              size: 26,
                             ),
                             Text("WISHLIST",
                                 style: UtilityClass.bottomNavStyleBlack)

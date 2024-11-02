@@ -205,7 +205,7 @@ class UtilityClass {
       color: AppColors.lightColor);
 
   static TextStyle buttonStyleWhiteNoSpacing = TextStyle(
-      fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.lightColor);
+      fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.lightColor);
 
   static TextStyle buttonStyleWhite = TextStyle(
       fontSize: 14,

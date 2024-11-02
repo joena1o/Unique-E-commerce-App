@@ -1,6 +1,7 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EndDrawerItems extends StatefulWidget {
   const EndDrawerItems({super.key, required this.callback});
@@ -145,7 +146,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                       ),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     Expanded(
                       child: Container(
@@ -203,20 +204,21 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                       )),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(8),
+                      height: 47,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.borderGray)),
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.add,
-                            size: 14,
+                          FaIcon(
+                            FontAwesomeIcons.add,
+                            size: 18,
                           ),
                           SizedBox(
                             width: 10,
@@ -225,9 +227,9 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                           SizedBox(
                             width: 10,
                           ),
-                          Icon(
-                            Icons.exposure_minus_1_sharp,
-                            size: 14,
+                          Text(
+                            "-",
+                            style: TextStyle(fontSize: 30),
                           )
                         ],
                       ),

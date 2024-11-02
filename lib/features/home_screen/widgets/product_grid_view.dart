@@ -31,6 +31,8 @@ class _ProductGridViewState extends State<ProductGridView> {
                 crossAxisSpacing: 20,
                 children: List.generate(7, (index) {
                   return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
                         onTap: () {
