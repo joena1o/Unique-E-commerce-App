@@ -207,7 +207,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       flex: 2,
                       child: Container(
                         height: 47,
-                        padding: const EdgeInsets.all(2),
                         decoration: UtilityClass.setButtonDecoration(
                             AppColors.darkColor),
                         child: ElevatedButton(

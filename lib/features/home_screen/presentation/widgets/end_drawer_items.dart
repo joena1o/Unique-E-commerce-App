@@ -217,15 +217,15 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FaIcon(
-                            FontAwesomeIcons.add,
-                            size: 18,
+                            FontAwesomeIcons.plus,
+                            size: 16,
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 15,
                           ),
                           Text("1"),
                           SizedBox(
-                            width: 10,
+                            width: 15,
                           ),
                           Text(
                             "-",

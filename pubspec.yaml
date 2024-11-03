@@ -40,6 +40,12 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   flutter_breadcrumb: ^1.0.1
   font_awesome_flutter: ^10.7.0
+  flutter_dotenv: 
+  flutter_riverpod: ^2.6.1
+  firebase_core:
+  firebase_core_web: 
+  firebase_auth:
+  cloud_firestore: ^5.4.4
 
 dev_dependencies:
   flutter_test:

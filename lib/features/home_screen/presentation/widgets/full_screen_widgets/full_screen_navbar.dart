@@ -31,7 +31,8 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                 alignment: WrapAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "HOME",
                       style: UtilityClass.navFontBlack,
@@ -43,7 +44,8 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                       context.go("/about");
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
                       child: Text(
                         "ABOUT US",
                         style: UtilityClass.navFontBlack,
@@ -51,63 +53,72 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "JUMPSUITS",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "PLAYSUIT",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "TWO PIECE",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                     child: Text(
                       "SHORT DRESS",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "LONG DRESS",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "NEW IN",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "BAGS",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "SALES",
                       style: UtilityClass.navFontBlack,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "CONTACT",
                       style: UtilityClass.navFontBlack,

@@ -1,11 +1,17 @@
 import 'package:beunique_ecommerce/core/app_routes.dart';
 import 'package:beunique_ecommerce/core/config/app_theme.dart';
+import 'package:beunique_ecommerce/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import "package:flutter_web_plugins/flutter_web_plugins.dart"
     show usePathUrlStrategy;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   usePathUrlStrategy();
   runApp(const MyApp());
 }
