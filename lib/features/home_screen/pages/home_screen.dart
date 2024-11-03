@@ -4,6 +4,7 @@ import 'package:beunique_ecommerce/features/home_screen/widgets/end_drawer_items
 import 'package:beunique_ecommerce/features/home_screen/widgets/links_area.dart';
 import 'package:beunique_ecommerce/features/home_screen/widgets/full_screen_widgets/full_screen_navbar.dart';
 import 'package:beunique_ecommerce/features/home_screen/widgets/info_banner.dart';
+import 'package:beunique_ecommerce/features/home_screen/widgets/mobile_navbar.dart';
 import 'package:beunique_ecommerce/features/home_screen/widgets/top_banner.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -54,107 +55,12 @@ class _HomeScreenState extends State<HomeScreen>
                   const TopBanner(),
                   const InfoBanner(),
                   Responsive.isMobile(context)
-                      ? Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom:
-                                      BorderSide(color: AppColors.borderGray)),
-                              color: Colors.white),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    _scaffoldKey.currentState?.openDrawer();
-                                  },
-                                  icon: const Icon(Icons.menu)),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    showTopSheet(
-                                      context,
-                                      Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  overlayEntry.remove();
-                                                },
-                                                icon: const Icon(Icons.close),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                  border: Border(
-                                                    bottom: BorderSide(
-                                                      color: AppColors
-                                                          .borderGray, // Border color
-                                                      width:
-                                                          2.0, // Border width
-                                                      style: BorderStyle
-                                                          .solid, // Border style
-                                                    ),
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: TextFormField(
-                                                          decoration:
-                                                              InputDecoration(
-                                                                  suffixIcon:
-                                                                      IconButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    icon: const Icon(
-                                                                        Icons
-                                                                            .search),
-                                                                  ),
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintText:
-                                                                      "Search..")),
-                                                    )
-                                                  ],
-                                                )),
-                                            Container(height: 200)
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.search)),
-                              const Spacer(),
-                              Text("UNIQUE",
-                                  style: UtilityClass.headerStyleBlack),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.favorite_outline)),
-                              IconButton(
-                                  onPressed: () {
-                                    _scaffoldKey.currentState?.openEndDrawer();
-                                  },
-                                  icon: const Icon(Icons.shopping_bag_outlined))
-                            ],
-                          ),
+                      ? MobileNavbar(
+                          openEndDrawer: () =>
+                              _scaffoldKey.currentState?.openEndDrawer(),
+                          openDrawer: () =>
+                              _scaffoldKey.currentState?.openDrawer(),
+                          openSearch: () => openSearch(),
                         )
                       : const FullScreenNavbar(),
                   widget.child,
@@ -373,5 +279,58 @@ class _HomeScreenState extends State<HomeScreen>
     );
 
     overlay.insert(overlayEntry);
+  }
+
+  void openSearch() {
+    showTopSheet(
+      context,
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: IconButton(
+                onPressed: () {
+                  overlayEntry.remove();
+                },
+                icon: const Icon(Icons.close),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: AppColors.borderGray, // Border color
+                      width: 2.0, // Border width
+                      style: BorderStyle.solid, // Border style
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.search),
+                              ),
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              hintText: "Search..")),
+                    )
+                  ],
+                )),
+            Container(height: 200)
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -157,7 +157,7 @@ class UtilityClass {
       fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey);
 
   static TextStyle bannerLabelWhite = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       letterSpacing: 2,
       fontWeight: FontWeight.w500,
       color: Colors.white);
