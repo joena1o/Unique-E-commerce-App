@@ -1,16 +1,16 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/drawer_items.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/end_drawer_items.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/links_area.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/full_screen_widgets/full_screen_navbar.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/info_banner.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/mobile_navbar.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/top_banner.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/drawer_items.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/end_drawer_items.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/links_area.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/full_screen_widgets/full_screen_navbar.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/info_banner.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/mobile_navbar.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_banner.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/top_search_sheet.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_search_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.child});

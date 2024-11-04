@@ -1,6 +1,6 @@
-import 'package:beunique_ecommerce/features/home_screen/widgets/bottom_banner.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/carousel_area.dart';
-import 'package:beunique_ecommerce/features/home_screen/widgets/product_grid_view.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/bottom_banner.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/carousel_area.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 

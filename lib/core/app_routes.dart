@@ -1,9 +1,9 @@
 import 'package:beunique_ecommerce/features/about_us_screen/presentation/pages/about_us_screen.dart';
-import 'package:beunique_ecommerce/features/home_screen/pages/home_screen.dart';
-import 'package:beunique_ecommerce/features/home_screen/pages/tabs/account_tab.dart';
-import 'package:beunique_ecommerce/features/home_screen/pages/tabs/home_tab.dart';
-import 'package:beunique_ecommerce/features/home_screen/pages/tabs/product_tab.dart';
-import 'package:beunique_ecommerce/features/home_screen/pages/tabs/wishlist_tab.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/pages/home_screen.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/account_tab.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/home_tab.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/product_tab.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/wishlist_tab.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/pages/product_screen.dart';
 import 'package:go_router/go_router.dart';
 
