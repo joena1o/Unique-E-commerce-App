@@ -32,7 +32,8 @@ class AuthRepository {
     }
   }
 
-  Future<User?> signInWithEmailPassword(String email, String password) async {
+  Future<User?> signInWithEmailPassword(
+      {required String email, required String password}) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -43,10 +44,6 @@ class AuthRepository {
     } catch (e) {
       return null;
     }
-  }
-
-  Future<DocumentSnapshot> getUserData(String uid) async {
-    return await FirebaseFirestore.instance.collection('users').doc(uid).get();
   }
 
   Future<UserModel?> getUserProfile(String uid) async {

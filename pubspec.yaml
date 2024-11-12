@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   get_it:
   go_router: ^5.0.0
+  animations: ^2.0.11
   flutter_staggered_grid_view: ^0.7.0
   flutter_breadcrumb: ^1.0.1
   font_awesome_flutter: ^10.7.0
@@ -46,6 +47,9 @@ dependencies:
   firebase_core_web: 
   firebase_auth:
   cloud_firestore: ^5.4.4
+  visibility_detector: 
+  provider: ^6.1.2
+  intl:
 
 dev_dependencies:
   flutter_test:

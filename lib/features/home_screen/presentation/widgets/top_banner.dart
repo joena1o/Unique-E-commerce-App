@@ -1,7 +1,7 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:beunique_ecommerce/utils/utility_class.dart';
 
 class TopBanner extends StatelessWidget {
   const TopBanner({super.key});
@@ -17,7 +17,7 @@ class TopBanner extends StatelessWidget {
         child: Text(
           "Express shipping on orders over \$180",
           textAlign: TextAlign.center,
-          style: UtilityClass.bannerLabelWhite,
+          style: FontClass.bannerLabelWhite,
         ),
       ),
     );

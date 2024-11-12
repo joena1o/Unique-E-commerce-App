@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("UNIQUE", style: UtilityClass.headerStyleBlack),
+            Text("UNIQUE", style: FontClass.headerStyleBlack),
             Expanded(
               child: Wrap(
                 alignment: WrapAlignment.center,
@@ -35,7 +36,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "HOME",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   GestureDetector(
@@ -48,7 +49,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                           horizontal: 15, vertical: 5),
                       child: Text(
                         "ABOUT US",
-                        style: UtilityClass.navFontBlack,
+                        style: FontClass.navFontBlack,
                       ),
                     ),
                   ),
@@ -57,7 +58,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "JUMPSUITS",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -65,7 +66,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "PLAYSUIT",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -73,7 +74,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "TWO PIECE",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -81,7 +82,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                     child: Text(
                       "SHORT DRESS",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -89,7 +90,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "LONG DRESS",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -97,7 +98,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "NEW IN",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -105,7 +106,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "BAGS",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -113,7 +114,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "SALES",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                   Padding(
@@ -121,7 +122,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "CONTACT",
-                      style: UtilityClass.navFontBlack,
+                      style: FontClass.navFontBlack,
                     ),
                   ),
                 ],

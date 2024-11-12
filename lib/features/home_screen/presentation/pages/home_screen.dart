@@ -6,10 +6,10 @@ import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/ful
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/info_banner.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/mobile_navbar.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_banner.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_search_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +27,33 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int currentIndex = 0;
 
+  late ScrollController scrollController;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(_scrollListener);
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInCubic),
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +68,14 @@ class _HomeScreenState extends State<HomeScreen>
       endDrawer: Drawer(
         shape: const RoundedRectangleBorder(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        width: Responsive.getSize(context).width * .9,
+        width: Responsive.getSize(context).width * .7,
         child: EndDrawerItems(
-            callback: () => _scaffoldKey.currentState?.closeEndDrawer()),
+            callback: () => {_scaffoldKey.currentState?.closeEndDrawer()}),
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: scrollController,
             padding: EdgeInsets.zero,
             child: LayoutBuilder(builder: (context, constraints) {
               return Column(
@@ -57,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Responsive.isMobile(context)
                       ? MobileNavbar(
                           openEndDrawer: () =>
-                              _scaffoldKey.currentState?.openEndDrawer(),
+                              {_scaffoldKey.currentState?.openEndDrawer()},
                           openDrawer: () =>
                               _scaffoldKey.currentState?.openDrawer(),
                           openSearch: () => openSearch(),
@@ -92,6 +120,28 @@ class _HomeScreenState extends State<HomeScreen>
                       Icon(Icons.keyboard_arrow_down)
                     ],
                   ))),
+          Positioned(
+            top: 0,
+            child: AnimatedOpacity(
+              opacity: showNavBar ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 500),
+              child: FadeTransition(
+                opacity: _animation,
+                child: SizedBox(
+                  width: Responsive.getSize(context).width,
+                  child: Responsive.isMobile(context)
+                      ? MobileNavbar(
+                          openEndDrawer: () =>
+                              _scaffoldKey.currentState?.openEndDrawer(),
+                          openDrawer: () =>
+                              _scaffoldKey.currentState?.openDrawer(),
+                          openSearch: () => openSearch(),
+                        )
+                      : const FullScreenNavbar(),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -128,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen>
                             Icons.home_filled,
                             size: 26,
                           ),
-                          Text("HOME", style: UtilityClass.bottomNavStyleBlack)
+                          Text("HOME", style: FontClass.bottomNavStyleBlack)
                         ],
                       ),
                     ),
@@ -142,8 +192,7 @@ class _HomeScreenState extends State<HomeScreen>
                               Icons.storefront,
                               size: 26,
                             ),
-                            Text("SHOP",
-                                style: UtilityClass.bottomNavStyleBlack)
+                            Text("SHOP", style: FontClass.bottomNavStyleBlack)
                           ],
                         )),
                     GestureDetector(
@@ -210,8 +259,7 @@ class _HomeScreenState extends State<HomeScreen>
                               Icons.search,
                               size: 26,
                             ),
-                            Text("SEARCH",
-                                style: UtilityClass.bottomNavStyleBlack)
+                            Text("SEARCH", style: FontClass.bottomNavStyleBlack)
                           ],
                         )),
                     GestureDetector(
@@ -225,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen>
                               size: 26,
                             ),
                             Text("ACCOUNT",
-                                style: UtilityClass.bottomNavStyleBlack)
+                                style: FontClass.bottomNavStyleBlack)
                           ],
                         )),
                     GestureDetector(
@@ -239,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen>
                               size: 26,
                             ),
                             Text("WISHLIST",
-                                style: UtilityClass.bottomNavStyleBlack)
+                                style: FontClass.bottomNavStyleBlack)
                           ],
                         ))
                   ],
@@ -332,5 +380,23 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
     );
+  }
+
+  bool showNavBar = false;
+
+  void _scrollListener() {
+    if (scrollController.hasClients) {
+      bool shouldShowNavBar = scrollController.position.pixels > 150;
+      if (shouldShowNavBar != showNavBar) {
+        setState(() => showNavBar = shouldShowNavBar);
+        if (showNavBar) {
+          // Restart the animation from the beginning when it becomes visible
+          _controller.forward(from: 0.0);
+        } else {
+          // Reverse the animation when it becomes hidden
+          _controller.reverse();
+        }
+      }
+    }
   }
 }

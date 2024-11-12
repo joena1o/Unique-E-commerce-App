@@ -1,5 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
-import 'package:beunique_ecommerce/utils/utility_class.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:flutter/material.dart';
 
 class MobileNavbar extends StatefulWidget {
@@ -41,7 +41,7 @@ class _MobileNavbarState extends State<MobileNavbar> {
               },
               icon: const Icon(Icons.search)),
           const Spacer(),
-          Text("UNIQUE", style: UtilityClass.headerStyleBlack),
+          Text("UNIQUE", style: FontClass.headerStyleBlack),
           const Spacer(),
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.favorite_outline)),

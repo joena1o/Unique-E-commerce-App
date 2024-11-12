@@ -1,6 +1,7 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/widgets/expanded_list_section.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -49,14 +50,14 @@ class _ProductScreenState extends State<ProductScreen> {
                 width: Responsive.getSize(context).width,
                 alignment: Alignment.centerLeft,
                 padding: UtilityClass.horizontalPadding,
-                child: Text("Products",
-                    style: UtilityClass.headerStyleBlackNormal),
+                child:
+                    Text("Products", style: FontClass.headerStyleBlackNormal),
               ),
               Container(
                 width: Responsive.getSize(context).width,
                 alignment: Alignment.centerLeft,
                 padding: UtilityClass.horizontalPadding,
-                child: Text("N15,000", style: UtilityClass.headerStyleBlack),
+                child: Text("N15,000", style: FontClass.headerStyleBlack),
               ),
               Container(
                 width: Responsive.getSize(context).width,
@@ -88,8 +89,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   padding: UtilityClass.horizontalPadding,
                   child: const Row(
                     children: [
-                      Icon(
-                        Icons.fire_extinguisher,
+                      FaIcon(
+                        FontAwesomeIcons.fireFlameSimple,
                         size: 20,
                         color: Colors.red,
                       ),
@@ -172,32 +173,32 @@ class _ProductScreenState extends State<ProductScreen> {
                 padding: UtilityClass.horizontalAndVerticalPadding,
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Container(
-                        height: 47,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.borderGray)),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.add,
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text("1"),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "-",
-                              style: TextStyle(fontSize: 30),
-                            )
-                          ],
-                        ),
+                    Container(
+                      height: 47,
+                      width: 120,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.borderGray)),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.plus,
+                            size: 16,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text("1"),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          FaIcon(
+                            FontAwesomeIcons.minus,
+                            size: 16,
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
@@ -214,7 +215,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: Text(
                               "ADD TO CART",
                               overflow: TextOverflow.ellipsis,
-                              style: UtilityClass.buttonStyleWhiteNoSpacing,
+                              style: FontClass.buttonStyleWhiteNoSpacing,
                             )),
                       ),
                     ),
@@ -254,14 +255,14 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: 20,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                height: 46,
                 margin: UtilityClass.horizontalPadding,
                 width: Responsive.getSize(context).width,
                 decoration: UtilityClass.buttonDecorationOnlyOutline,
                 child: ElevatedButton(
                     onPressed: () {},
-                    child: Text("BUY IT NOW",
-                        style: UtilityClass.buttonStyleBlack)),
+                    child:
+                        Text("BUY IT NOW", style: FontClass.buttonStyleBlack)),
               ),
               const SizedBox(
                 height: 20,
@@ -282,7 +283,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             width: 10,
                           ),
                           Text("Ask a question",
-                              style: UtilityClass.navFontBlackNoSpace)
+                              style: FontClass.navFontBlackNoSpace)
                         ],
                       ),
                     ),
@@ -298,7 +299,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               width: 10,
                             ),
                             Text("Delivery & Returns",
-                                style: UtilityClass.navFontBlackNoSpace)
+                                style: FontClass.navFontBlackNoSpace)
                           ],
                         )),
                     Padding(
@@ -312,8 +313,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             const SizedBox(
                               width: 10,
                             ),
-                            Text("Share",
-                                style: UtilityClass.navFontBlackNoSpace)
+                            Text("Share", style: FontClass.navFontBlackNoSpace)
                           ],
                         )),
                   ],
@@ -360,7 +360,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               Text(
                 "You may also like",
-                style: UtilityClass.titleStyleBlack,
+                style: FontClass.titleStyleBlack,
               ),
               const SizedBox(
                 height: 5,
@@ -420,14 +420,14 @@ class _ProductScreenState extends State<ProductScreen> {
                             alignment: Alignment.centerLeft,
                             padding: UtilityClass.horizontalPadding,
                             child: Text("Products",
-                                style: UtilityClass.headerStyleBlackNormal),
+                                style: FontClass.headerStyleBlackNormal),
                           ),
                           Container(
                             width: Responsive.getSize(context).width,
                             alignment: Alignment.centerLeft,
                             padding: UtilityClass.horizontalPadding,
                             child: Text("N15,000",
-                                style: UtilityClass.headerStyleBlack),
+                                style: FontClass.headerStyleBlack),
                           ),
                           Container(
                             width: Responsive.getSize(context).width,
@@ -460,8 +460,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               padding: UtilityClass.horizontalPadding,
                               child: const Row(
                                 children: [
-                                  Icon(
-                                    Icons.fire_extinguisher,
+                                  FaIcon(
+                                    FontAwesomeIcons.fireFlameSimple,
                                     size: 20,
                                     color: Colors.red,
                                   ),
@@ -551,34 +551,36 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: UtilityClass.horizontalAndVerticalPadding,
                             child: Row(
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: AppColors.borderGray)),
-                                    child: const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.add,
-                                          size: 16,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text("1"),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Icon(
-                                          Icons.exposure_minus_1_sharp,
-                                          size: 16,
-                                        )
-                                      ],
-                                    ),
+                                Container(
+                                  height: 47,
+                                  width: 120,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.borderGray)),
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.plus,
+                                        size: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Text("1"),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      FaIcon(
+                                        FontAwesomeIcons.minus,
+                                        size: 16,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
@@ -595,7 +597,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         child: Text(
                                           "ADD TO CART",
                                           overflow: TextOverflow.ellipsis,
-                                          style: UtilityClass.buttonStyleWhite,
+                                          style: FontClass.buttonStyleWhite,
                                         )),
                                   ),
                                 ),
@@ -643,7 +645,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: ElevatedButton(
                                 onPressed: () {},
                                 child: Text("BUY IT NOW",
-                                    style: UtilityClass.buttonStyleBlack)),
+                                    style: FontClass.buttonStyleBlack)),
                           ),
                           const SizedBox(
                             height: 20,
@@ -665,8 +667,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         width: 10,
                                       ),
                                       Text("Ask a question",
-                                          style:
-                                              UtilityClass.navFontBlackNoSpace)
+                                          style: FontClass.navFontBlackNoSpace)
                                     ],
                                   ),
                                 ),
@@ -683,8 +684,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                           width: 10,
                                         ),
                                         Text("Delivery & Returns",
-                                            style: UtilityClass
-                                                .navFontBlackNoSpace)
+                                            style:
+                                                FontClass.navFontBlackNoSpace)
                                       ],
                                     )),
                                 Padding(
@@ -700,8 +701,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                           width: 10,
                                         ),
                                         Text("Share",
-                                            style: UtilityClass
-                                                .navFontBlackNoSpace)
+                                            style:
+                                                FontClass.navFontBlackNoSpace)
                                       ],
                                     )),
                               ],

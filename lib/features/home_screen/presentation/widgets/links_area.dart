@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +208,7 @@ class _LinksAreaState extends State<LinksArea> {
                               children: [
                                 Text(
                                   "Get In Touch with us",
-                                  style: UtilityClass.headerStyleMediumBlack,
+                                  style: FontClass.headerStyleMediumBlack,
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -235,7 +236,7 @@ class _LinksAreaState extends State<LinksArea> {
                               children: [
                                 Text(
                                   "Collection",
-                                  style: UtilityClass.headerStyleMediumBlack,
+                                  style: FontClass.headerStyleMediumBlack,
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -276,7 +277,7 @@ class _LinksAreaState extends State<LinksArea> {
                               children: [
                                 Text(
                                   "Customer Services",
-                                  style: UtilityClass.headerStyleMediumBlack,
+                                  style: FontClass.headerStyleMediumBlack,
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -320,7 +321,7 @@ class _LinksAreaState extends State<LinksArea> {
                               children: [
                                 Text(
                                   "Get 10% off When You Become A VIP",
-                                  style: UtilityClass.headerStyleMediumBlack,
+                                  style: FontClass.headerStyleMediumBlack,
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -376,7 +377,7 @@ class _LinksAreaState extends State<LinksArea> {
                                     Text(
                                       "Get In Touch with us",
                                       style:
-                                          UtilityClass.headerStyleMediumBlack,
+                                          FontClass.headerStyleMediumBlack,
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -407,7 +408,7 @@ class _LinksAreaState extends State<LinksArea> {
                                     Text(
                                       "Collection",
                                       style:
-                                          UtilityClass.headerStyleMediumBlack,
+                                          FontClass.headerStyleMediumBlack,
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -456,7 +457,7 @@ class _LinksAreaState extends State<LinksArea> {
                                 children: [
                                   Text(
                                     "Customer Services",
-                                    style: UtilityClass.headerStyleMediumBlack,
+                                    style: FontClass.headerStyleMediumBlack,
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -501,7 +502,7 @@ class _LinksAreaState extends State<LinksArea> {
                                 children: [
                                   Text(
                                     "Get 10% off When You Become A VIP",
-                                    style: UtilityClass.headerStyleMediumBlack,
+                                    style: FontClass.headerStyleMediumBlack,
                                   ),
                                   const SizedBox(
                                     height: 20,

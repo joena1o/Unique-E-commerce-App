@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -41,7 +42,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                   return cartItem();
                 })),
         Container(
-          padding: const EdgeInsets.only(top: 20, bottom: 10),
+          padding: const EdgeInsets.only(top: 25, bottom: 10),
           decoration: BoxDecoration(color: AppColors.lightColor, boxShadow: [
             BoxShadow(
                 color: AppColors.borderGray, blurRadius: 2, spreadRadius: 1)
@@ -127,13 +128,13 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(2),
+                        height: 46,
                         decoration: UtilityClass.setButtonDecoration(
                             AppColors.inactiveColor!),
                         child: ElevatedButton(
@@ -141,7 +142,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                             child: Text(
                               "CHECK OUT",
                               overflow: TextOverflow.ellipsis,
-                              style: UtilityClass.buttonStyleWhiteNoSpacing,
+                              style: FontClass.buttonStyleWhiteNoSpacing,
                             )),
                       ),
                     ),
@@ -150,14 +151,14 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                     ),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(2),
+                        height: 46,
                         decoration: UtilityClass.buttonDecorationOnlyOutline,
                         child: ElevatedButton(
                             onPressed: () {},
                             child: Text(
                               "VIEW CART",
                               overflow: TextOverflow.ellipsis,
-                              style: UtilityClass.infoLabelGray,
+                              style: FontClass.infoLabelGray,
                             )),
                       ),
                     )
@@ -203,17 +204,18 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                         size: 18,
                       )),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Wrap(
+                  alignment: WrapAlignment.start,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Container(
                       height: 47,
+                      width: 100,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.borderGray)),
                       child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FaIcon(
@@ -227,10 +229,10 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                           SizedBox(
                             width: 15,
                           ),
-                          Text(
-                            "-",
-                            style: TextStyle(fontSize: 30),
-                          )
+                          FaIcon(
+                            FontAwesomeIcons.minus,
+                            size: 16,
+                          ),
                         ],
                       ),
                     ),

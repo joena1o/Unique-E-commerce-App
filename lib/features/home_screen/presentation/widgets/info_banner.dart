@@ -1,7 +1,7 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:beunique_ecommerce/utils/utility_class.dart';
 
 class InfoBanner extends StatelessWidget {
   const InfoBanner({super.key});
@@ -27,7 +27,7 @@ class InfoBanner extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              Text("Contact Us", style: UtilityClass.infoLabelGray)
+              Text("Contact Us", style: FontClass.infoLabelGray)
             ],
           ),
           VerticalDivider(
@@ -45,7 +45,7 @@ class InfoBanner extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              Text("uniqueglobal@gmail.com", style: UtilityClass.infoLabelGray)
+              Text("uniqueglobal@gmail.com", style: FontClass.infoLabelGray)
             ],
           )
         ],

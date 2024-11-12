@@ -1,5 +1,6 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _ProductTabState extends State<ProductTab> {
           Padding(
             padding: const EdgeInsets.only(top: 38.0, bottom: 5),
             child: Text("Products",
-                style: UtilityClass.extraLargeHeaderStyleBlackNormal),
+                style: FontClass.extraLargeHeaderStyleBlackNormal),
           ),
           BreadCrumb(
             items: <BreadCrumbItem>[
@@ -59,7 +60,7 @@ class _ProductTabState extends State<ProductTab> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text("FILTER", style: UtilityClass.buttonStyleBlackBold)
+                      Text("FILTER", style: FontClass.buttonStyleBlackBold)
                     ],
                   ),
                 ),

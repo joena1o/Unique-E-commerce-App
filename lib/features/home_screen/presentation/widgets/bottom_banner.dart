@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
@@ -30,7 +31,7 @@ class BottomBanner extends StatelessWidget {
                     ),
                     Text(
                       "Shopping Worldwide",
-                      style: UtilityClass.buttonRegularStyleWhite,
+                      style: FontClass.buttonRegularStyleWhite,
                     )
                   ],
                 ),
@@ -47,7 +48,7 @@ class BottomBanner extends StatelessWidget {
                     ),
                     Text(
                       "2 Days Return",
-                      style: UtilityClass.buttonRegularStyleWhite,
+                      style: FontClass.buttonRegularStyleWhite,
                     )
                   ],
                 ),
@@ -64,7 +65,7 @@ class BottomBanner extends StatelessWidget {
                     ),
                     Text(
                       "Security Payment",
-                      style: UtilityClass.buttonRegularStyleWhite,
+                      style: FontClass.buttonRegularStyleWhite,
                     )
                   ],
                 ),
@@ -81,7 +82,7 @@ class BottomBanner extends StatelessWidget {
                     ),
                     Text(
                       "24/7 Support",
-                      style: UtilityClass.buttonRegularStyleWhite,
+                      style: FontClass.buttonRegularStyleWhite,
                     )
                   ],
                 )
@@ -109,7 +110,7 @@ class BottomBanner extends StatelessWidget {
                               ),
                               Text(
                                 "Shopping Worldwide",
-                                style: UtilityClass.buttonRegularStyleWhite,
+                                style: FontClass.buttonRegularStyleWhite,
                               )
                             ],
                           ),
@@ -127,7 +128,7 @@ class BottomBanner extends StatelessWidget {
                               ),
                               Text(
                                 "2 Days Return",
-                                style: UtilityClass.buttonRegularStyleWhite,
+                                style: FontClass.buttonRegularStyleWhite,
                               )
                             ],
                           ),
@@ -153,7 +154,7 @@ class BottomBanner extends StatelessWidget {
                               ),
                               Text(
                                 "Security Payment",
-                                style: UtilityClass.buttonRegularStyleWhite,
+                                style: FontClass.buttonRegularStyleWhite,
                               )
                             ],
                           ),
@@ -171,7 +172,7 @@ class BottomBanner extends StatelessWidget {
                               ),
                               Text(
                                 "24/7 Support",
-                                style: UtilityClass.buttonRegularStyleWhite,
+                                style: FontClass.buttonRegularStyleWhite,
                               )
                             ],
                           )
@@ -197,7 +198,7 @@ class BottomBanner extends StatelessWidget {
                         ),
                         Text(
                           "Shopping Worldwide",
-                          style: UtilityClass.buttonRegularStyleWhite,
+                          style: FontClass.buttonRegularStyleWhite,
                         )
                       ],
                     ),
@@ -214,7 +215,7 @@ class BottomBanner extends StatelessWidget {
                         ),
                         Text(
                           "2 Days Return",
-                          style: UtilityClass.buttonRegularStyleWhite,
+                          style: FontClass.buttonRegularStyleWhite,
                         )
                       ],
                     ),
@@ -231,7 +232,7 @@ class BottomBanner extends StatelessWidget {
                         ),
                         Text(
                           "Security Payment",
-                          style: UtilityClass.buttonRegularStyleWhite,
+                          style: FontClass.buttonRegularStyleWhite,
                         )
                       ],
                     ),
@@ -248,7 +249,7 @@ class BottomBanner extends StatelessWidget {
                         ),
                         Text(
                           "24/7 Support",
-                          style: UtilityClass.buttonRegularStyleWhite,
+                          style: FontClass.buttonRegularStyleWhite,
                         )
                       ],
                     )

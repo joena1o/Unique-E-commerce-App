@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             height: 60,
           ),
           Text("Our History",
-              style: UtilityClass.extraLargeHeaderStyleBlackNormal),
+              style: FontClass.extraLargeHeaderStyleBlackNormal),
           const SizedBox(
             height: 5,
           ),
@@ -64,8 +65,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
           const SizedBox(
             height: 60,
           ),
-          Text("Get in touch with us",
-              style: UtilityClass.headerStyleMediumBlack),
+          Text("Get in touch with us", style: FontClass.headerStyleMediumBlack),
           const SizedBox(
             height: 10,
           ),
@@ -99,7 +99,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                Text("WHO WE ARE", style: UtilityClass.headerStyleBlackNormal),
+                Text("WHO WE ARE", style: FontClass.headerStyleBlackNormal),
                 const SizedBox(
                   height: 15,
                 ),
@@ -115,7 +115,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     color: AppColors.borderGray,
                   ),
                 ),
-                Text("OUR VISION", style: UtilityClass.headerStyleBlackNormal),
+                Text("OUR VISION", style: FontClass.headerStyleBlackNormal),
                 const SizedBox(
                   height: 15,
                 ),
@@ -131,7 +131,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     color: AppColors.borderGray,
                   ),
                 ),
-                Text("OUR MISSION", style: UtilityClass.headerStyleBlackNormal),
+                Text("OUR MISSION", style: FontClass.headerStyleBlackNormal),
                 const SizedBox(
                   height: 15,
                 ),
