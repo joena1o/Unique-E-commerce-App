@@ -4,6 +4,7 @@ import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/
 import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/home_tab.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/product_tab.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/pages/tabs/wishlist_tab.dart';
+import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/pages/product_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,12 +45,11 @@ final GoRouter _router = GoRouter(
               const NoTransitionPage(child: AboutUsScreen()),
         ),
         GoRoute(
-          path: '/product/:id',
+          path: '/product',
           name: 'product',
           pageBuilder: (context, state) {
-            // Retrieve the 'id' parameter from the state.
-            final String id = state.params['id']!;
-            return NoTransitionPage(child: ProductScreen(productId: id));
+            return NoTransitionPage(
+                child: ProductScreen(product: state.extra as FashionProduct));
           },
         ),
       ],

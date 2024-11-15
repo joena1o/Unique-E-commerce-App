@@ -1,8 +1,13 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
+import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
+import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class ProductGridView extends StatefulWidget {
   const ProductGridView({super.key});
@@ -16,10 +21,15 @@ class _ProductGridViewState extends State<ProductGridView>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  List<FashionProduct> products = [];
+
   @override
   void initState() {
     super.initState();
 
+    products = UtilityClass.fashionStoreProducts
+        .map((e) => FashionProduct.fromMap(e))
+        .toList();
     // Initialize animation controller and animation
     _controller = AnimationController(
       vsync: this,
@@ -60,28 +70,32 @@ class _ProductGridViewState extends State<ProductGridView>
                 mainAxisSpacing: 20,
                 axisDirection: AxisDirection.down,
                 crossAxisSpacing: 20,
-                children: List.generate(7, (index) {
+                children: List.generate(products.length, (index) {
+                  final product = products[index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.go('/product/1');
+                          context.go('/product', extra: product);
                         },
                         child: FadeTransition(
                           opacity: _animation,
-                          child: Container(
+                          child: SizedBox(
                             width: size.width * .5,
                             height: index % 2 == 0
                                 ? size.width * .60
                                 : size.width * .54,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(0),
-                              color: Colors.grey,
-                            ),
                             child: Stack(
                               children: [
+                                SizedBox(
+                                  width: size.width * .5,
+                                  height: index % 2 == 0
+                                      ? size.width * .60
+                                      : size.width * .54,
+                                  child: ImageWidget(url: product.image),
+                                ),
                                 Positioned(
                                   top: 10,
                                   right: 10,
@@ -115,11 +129,13 @@ class _ProductGridViewState extends State<ProductGridView>
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 5),
-                        child: Text("Product Name"),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 5),
+                        child: Text(product.productName),
                       ),
-                      const Text("N15,000"),
+                      Text(context
+                          .read<HomeProvider>()
+                          .calculateAmount(product.price)),
                     ],
                   );
                 })),

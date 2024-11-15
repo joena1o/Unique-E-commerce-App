@@ -6,11 +6,14 @@ import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/ful
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/info_banner.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/mobile_navbar.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_banner.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/main.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_search_sheet.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.child});
@@ -68,81 +71,107 @@ class _HomeScreenState extends State<HomeScreen>
       endDrawer: Drawer(
         shape: const RoundedRectangleBorder(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        width: Responsive.getSize(context).width * .7,
+        width: Responsive.getSize(context).width * .9,
         child: EndDrawerItems(
             callback: () => {_scaffoldKey.currentState?.closeEndDrawer()}),
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            controller: scrollController,
-            padding: EdgeInsets.zero,
-            child: LayoutBuilder(builder: (context, constraints) {
-              return Column(
-                children: [
-                  const TopBanner(),
-                  const InfoBanner(),
-                  Responsive.isMobile(context)
-                      ? MobileNavbar(
-                          openEndDrawer: () =>
-                              {_scaffoldKey.currentState?.openEndDrawer()},
-                          openDrawer: () =>
-                              _scaffoldKey.currentState?.openDrawer(),
-                          openSearch: () => openSearch(),
-                        )
-                      : const FullScreenNavbar(),
-                  widget.child,
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const LinksArea(),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                ],
-              );
-            }),
-          ),
-          Positioned(
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: scrollController,
+              padding: EdgeInsets.zero,
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Column(
+                  children: [
+                    const TopBanner(),
+                    const InfoBanner(),
+                    Responsive.isMobile(context)
+                        ? MobileNavbar(
+                            openEndDrawer: () =>
+                                {_scaffoldKey.currentState?.openEndDrawer()},
+                            openDrawer: () =>
+                                _scaffoldKey.currentState?.openDrawer(),
+                            openSearch: () => openSearch(),
+                          )
+                        : const FullScreenNavbar(),
+                    widget.child,
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const LinksArea(),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                  ],
+                );
+              }),
+            ),
+            Positioned(
               top: 70,
               right: 30,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.lightColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(10),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.cancel_rounded),
-                      SizedBox(width: 20),
-                      Text("NGN"),
-                      SizedBox(width: 20),
-                      Icon(Icons.keyboard_arrow_down)
-                    ],
-                  ))),
-          Positioned(
-            top: 0,
-            child: AnimatedOpacity(
-              opacity: showNavBar ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 500),
-              child: FadeTransition(
-                opacity: _animation,
-                child: SizedBox(
-                  width: Responsive.getSize(context).width,
-                  child: Responsive.isMobile(context)
-                      ? MobileNavbar(
-                          openEndDrawer: () =>
-                              _scaffoldKey.currentState?.openEndDrawer(),
-                          openDrawer: () =>
-                              _scaffoldKey.currentState?.openDrawer(),
-                          openSearch: () => openSearch(),
-                        )
-                      : const FullScreenNavbar(),
+              child: PopupMenuButton<Currency>(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                position: PopupMenuPosition.under,
+                onSelected: (value) {
+                  // Handle menu item selection
+                  context.read<HomeProvider>().setCurrency(value);
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.lightColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(10),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.cancel_rounded),
+                        SizedBox(width: 20),
+                        Text("NGN"),
+                        SizedBox(width: 20),
+                        Icon(Icons.keyboard_arrow_down)
+                      ],
+                    )),
+                itemBuilder: (BuildContext context) => const [
+                  PopupMenuItem(
+                    value: Currency.nigeria,
+                    child: Text("NGN"),
+                  ),
+                  PopupMenuItem(
+                    value: Currency.usd,
+                    child: Text("USD"),
+                  ),
+                  PopupMenuItem(
+                    value: Currency.euros,
+                    child: Text("EUR"),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 0,
+              child: AnimatedOpacity(
+                opacity: showNavBar ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 500),
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: SizedBox(
+                    width: Responsive.getSize(context).width,
+                    child: Responsive.isMobile(context)
+                        ? MobileNavbar(
+                            openEndDrawer: () =>
+                                _scaffoldKey.currentState?.openEndDrawer(),
+                            openDrawer: () =>
+                                _scaffoldKey.currentState?.openDrawer(),
+                            openSearch: () => openSearch(),
+                          )
+                        : const FullScreenNavbar(),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,

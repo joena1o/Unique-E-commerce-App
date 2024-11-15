@@ -1,17 +1,21 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/widgets/expanded_list_section.dart';
+import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key, required this.productId});
+  const ProductScreen({super.key, required this.product});
 
-  final String productId;
+  final FashionProduct product;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -22,6 +26,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final singleProduct = widget.product;
     return Responsive.isMobile(context)
         ? Column(
             children: [
@@ -32,6 +37,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   items: <BreadCrumbItem>[
                     BreadCrumbItem(content: const Text('Home')),
                     BreadCrumbItem(content: const Text('Products')),
+                    BreadCrumbItem(content: Text(singleProduct.productName)),
                   ],
                   divider: Icon(
                     Icons.chevron_right,
@@ -43,21 +49,25 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: 600,
                 margin: UtilityClass.horizontalPadding,
                 width: Responsive.getSize(context).width,
-                decoration: const BoxDecoration(color: Colors.grey),
+                child: ImageWidget(url: singleProduct.image),
               ),
               const SizedBox(height: 30),
               Container(
                 width: Responsive.getSize(context).width,
                 alignment: Alignment.centerLeft,
                 padding: UtilityClass.horizontalPadding,
-                child:
-                    Text("Products", style: FontClass.headerStyleBlackNormal),
+                child: Text(singleProduct.productName,
+                    style: FontClass.headerStyleBlackNormal),
               ),
               Container(
                 width: Responsive.getSize(context).width,
                 alignment: Alignment.centerLeft,
                 padding: UtilityClass.horizontalPadding,
-                child: Text("N15,000", style: FontClass.headerStyleBlack),
+                child: Text(
+                    context
+                        .read<HomeProvider>()
+                        .calculateAmount(singleProduct.price),
+                    style: FontClass.headerStyleBlack),
               ),
               Container(
                 width: Responsive.getSize(context).width,
@@ -135,38 +145,17 @@ class _ProductScreenState extends State<ProductScreen> {
               Padding(
                 padding: UtilityClass.horizontalPadding,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: UtilityClass.setButtonOutlineDecoration(
-                          AppColors.borderGray),
-                      child: const Text("X-Large"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: UtilityClass.setButtonOutlineDecoration(
-                          AppColors.borderGray),
-                      child: const Text("Large"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: UtilityClass.setButtonOutlineDecoration(
-                          AppColors.borderGray),
-                      child: const Text("Medium"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: UtilityClass.setButtonOutlineDecoration(
-                          AppColors.borderGray),
-                      child: const Text("Small"),
-                    )
-                  ],
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                        List.generate(singleProduct.sizes.length, (sizeIndex) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(right: 10),
+                        decoration: UtilityClass.setButtonOutlineDecoration(
+                            AppColors.borderGray),
+                        child: Text(singleProduct.sizes[sizeIndex]),
+                      );
+                    })),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 10),

@@ -1,3 +1,4 @@
+import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +21,7 @@ class _DrawerItemsState extends State<DrawerItems> {
           bottom: false,
           child: Center(
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 widget.callback();
               },
               child: Container(
@@ -35,102 +36,61 @@ class _DrawerItemsState extends State<DrawerItems> {
             ),
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Text("HOME"),
         ),
         const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: Divider(),
         ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             context.pop();
             context.go("/about");
           },
           child: const Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text("ABOUT US"),
           ),
         ),
         const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: Divider(),
         ),
+        Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:
+                List.generate(UtilityClass.uniqueCategories.length, (index) {
+              final category = UtilityClass.uniqueCategories[index];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(category.toUpperCase()),
+                  ),
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                    child: Divider(),
+                  ),
+                ],
+              );
+            })),
         const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("JUMPSUITS"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("PLAYSUIT"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("TWO PIECE"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("SHORT DRESS"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("LONG DRESS"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("NEW IN"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("BAGS"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
-          child: Text("SALES"),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Divider(),
-        ),
-        const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Text("CONTACT"),
         ),
         const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: Divider(),
         ),
         const Spacer(),
-      ],);
+      ],
+    );
   }
 }

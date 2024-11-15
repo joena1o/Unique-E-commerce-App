@@ -43,9 +43,11 @@ class TopSheetState extends State<TopSheet>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _offsetAnimation,
-      child: Material(
-        elevation: 1,
-        child: widget.child,
+      child: SafeArea(
+        child: Material(
+          elevation: 1,
+          child: widget.child,
+        ),
       ),
     );
   }
