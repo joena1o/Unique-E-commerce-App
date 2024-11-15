@@ -1,4 +1,5 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/core/config/get_it_setup.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/cart_provider.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
@@ -6,6 +7,7 @@ import 'package:beunique_ecommerce/features/home_screen/provider/wishlist_provid
 import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/widgets/expanded_list_section.dart';
 import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
+import 'package:beunique_ecommerce/utils/dialog_services.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
@@ -27,6 +29,7 @@ class _ProductScreenState extends State<ProductScreen> {
   String _selectedOption = 'Option 1';
 
   int numberOfItems = 1;
+  String size = "";
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +155,32 @@ class _ProductScreenState extends State<ProductScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:
                         List.generate(singleProduct.sizes.length, (sizeIndex) {
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: UtilityClass.setButtonOutlineDecoration(
-                            AppColors.borderGray),
-                        child: Text(singleProduct.sizes[sizeIndex]),
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            size = singleProduct.sizes[sizeIndex];
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: AppColors.borderGray, width: 1),
+                            color: singleProduct.sizes[sizeIndex] == size
+                                ? Colors.black
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          child: Text(
+                            singleProduct.sizes[sizeIndex],
+                            style: TextStyle(
+                              color: singleProduct.sizes[sizeIndex] == size
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
                       );
                     })),
               ),
@@ -217,6 +240,11 @@ class _ProductScreenState extends State<ProductScreen> {
                             AppColors.darkColor),
                         child: ElevatedButton(
                             onPressed: () {
+                              if (singleProduct.sizes.isNotEmpty &&
+                                  size.isEmpty) {
+                                return getIt<DialogServices>().showMessageError(
+                                    "Please select your preferred size");
+                              }
                               context.read<CartProvider>().addProduct(
                                   singleProduct,
                                   size: numberOfItems.toString());
