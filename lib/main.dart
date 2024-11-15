@@ -3,7 +3,9 @@ import 'package:beunique_ecommerce/core/config/app_theme.dart';
 import 'package:beunique_ecommerce/core/config/get_it_setup.dart';
 import 'package:beunique_ecommerce/features/home_screen/data/repository/auth_repository.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/account_provider.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/cart_provider.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/wishlist_provider.dart';
 import 'package:beunique_ecommerce/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +56,13 @@ class MyApp extends StatelessWidget {
                 create: (context) =>
                     AccountProvider(authRepository: getIt<AuthRepository>())),
             ChangeNotifierProvider(create: (context) => HomeProvider()),
+            ChangeNotifierProvider(create: (context) => WishlistProvider()),
+            ChangeNotifierProvider(create: (context) => CartProvider()),
           ],
           child: MaterialApp.router(
             routerConfig: router,
             title: 'Flutter Demo',
+            scaffoldMessengerKey: rootScaffoldMessengerKey,
             debugShowCheckedModeBanner: false,
             theme: MainAppTheme.lightTheme,
           ),

@@ -1,7 +1,9 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/wishlist_provider.dart';
 import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
 import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
+import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ProductGridView extends StatefulWidget {
-  const ProductGridView({super.key});
+  const ProductGridView({super.key, this.products});
+
+  final List<FashionProduct>? products;
 
   @override
   State<ProductGridView> createState() => _ProductGridViewState();
@@ -27,9 +31,14 @@ class _ProductGridViewState extends State<ProductGridView>
   void initState() {
     super.initState();
 
-    products = UtilityClass.fashionStoreProducts
-        .map((e) => FashionProduct.fromMap(e))
-        .toList();
+    if (widget.products == null) {
+      products = UtilityClass.fashionStoreProducts
+          .map((e) => FashionProduct.fromMap(e))
+          .toList();
+    } else {
+      products = widget.products!;
+    }
+
     // Initialize animation controller and animation
     _controller = AnimationController(
       vsync: this,
@@ -64,82 +73,100 @@ class _ProductGridViewState extends State<ProductGridView>
               : EdgeInsets.symmetric(
                   horizontal: Responsive.getSize(context).width * .05),
           padding: const EdgeInsets.all(15.0),
-          child: SingleChildScrollView(
-            child: StaggeredGrid.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                axisDirection: AxisDirection.down,
-                crossAxisSpacing: 20,
-                children: List.generate(products.length, (index) {
-                  final product = products[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.go('/product', extra: product);
-                        },
-                        child: FadeTransition(
-                          opacity: _animation,
-                          child: SizedBox(
-                            width: size.width * .5,
-                            height: index % 2 == 0
-                                ? size.width * .60
-                                : size.width * .54,
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  width: size.width * .5,
-                                  height: index % 2 == 0
-                                      ? size.width * .60
-                                      : size.width * .54,
-                                  child: ImageWidget(url: product.image),
-                                ),
-                                Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.lightColor,
-                                    ),
-                                    child: const Icon(
-                                      Icons.favorite_border,
-                                      size: 16,
+          child:
+              Consumer<WishlistProvider>(builder: (context, provider, child) {
+            return SingleChildScrollView(
+              child: StaggeredGrid.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 20,
+                  axisDirection: AxisDirection.down,
+                  crossAxisSpacing: 20,
+                  children: List.generate(products.length, (index) {
+                    final product = products[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.go('/product', extra: product);
+                          },
+                          child: FadeTransition(
+                            opacity: _animation,
+                            child: SizedBox(
+                              width: size.width * .5,
+                              height: index % 2 == 0
+                                  ? size.width * .60
+                                  : size.width * .54,
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    width: size.width * .5,
+                                    height: index % 2 == 0
+                                        ? size.width * .60
+                                        : size.width * .54,
+                                    child: ImageWidget(url: product.image),
+                                  ),
+                                  Positioned(
+                                    top: 10,
+                                    right: 10,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        context
+                                            .read<WishlistProvider>()
+                                            .addWishList(product);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.lightColor,
+                                        ),
+                                        child: Icon(
+                                          provider.wishList.contains(product)
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          size: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  top: 46,
-                                  right: 10,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.lightColor,
-                                    ),
-                                    child: const Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      size: 16,
+                                  Positioned(
+                                    top: 50,
+                                    right: 10,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.lightColor,
+                                      ),
+                                      child: const Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        size: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 5),
-                        child: Text(product.productName),
-                      ),
-                      Text(context
-                          .read<HomeProvider>()
-                          .calculateAmount(product.price)),
-                    ],
-                  );
-                })),
-          ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0, bottom: 5),
+                          child: Text(product.productName),
+                        ),
+                        Consumer<HomeProvider>(
+                            builder: (context, provider, child) {
+                          return Text(
+                            context
+                                .read<HomeProvider>()
+                                .calculateAmount(product.price),
+                            style: FontClass.priceFont,
+                          );
+                        }),
+                      ],
+                    );
+                  })),
+            );
+          }),
         )
       ],
     );

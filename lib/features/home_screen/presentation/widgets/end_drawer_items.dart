@@ -1,8 +1,10 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/cart_provider.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class EndDrawerItems extends StatefulWidget {
   const EndDrawerItems({super.key, required this.callback});
@@ -18,158 +20,160 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SafeArea(
-          bottom: false,
-          child: Container(
-            margin: const EdgeInsets.only(top: 40),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-            child: const Text("Shopping Cart (0)"),
+    return Consumer<CartProvider>(builder: (context, provider, child) {
+      return Column(
+        children: [
+          SafeArea(
+            bottom: false,
+            child: Container(
+              margin: const EdgeInsets.only(top: 40),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+              child: Text("Shopping Cart (${provider.totalItems})"),
+            ),
           ),
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
-          child: const Text("Congratulations, you have free shipping!"),
-        ),
-        Expanded(
-            child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: 10,
-                itemBuilder: (BuildContext ctx, int i) {
-                  return cartItem();
-                })),
-        Container(
-          padding: const EdgeInsets.only(top: 25, bottom: 10),
-          decoration: BoxDecoration(color: AppColors.lightColor, boxShadow: [
-            BoxShadow(
-                color: AppColors.borderGray, blurRadius: 2, spreadRadius: 1)
-          ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: AppColors.borderGray,
-                        child: const Icon(Icons.edit),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text("Add Note")
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: AppColors.borderGray,
-                        child: const Icon(Icons.percent),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text("Coupon")
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: AppColors.borderGray,
-                        child: const Icon(Icons.local_shipping_outlined),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text("Shipping")
-                    ],
-                  )
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: Divider(),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Subtotal:"), Text("N15,000")],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-                child: Text("Taxes and shipping calculated at checkout"),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
+            child: const Text("Congratulations, you have free shipping!"),
+          ),
+          Expanded(
+              child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  itemCount: provider.items.length,
+                  itemBuilder: (BuildContext ctx, int i) {
+                    return cartItem();
+                  })),
+          Container(
+            padding: const EdgeInsets.only(top: 25, bottom: 10),
+            decoration: BoxDecoration(color: AppColors.lightColor, boxShadow: [
+              BoxShadow(
+                  color: AppColors.borderGray, blurRadius: 2, spreadRadius: 1)
+            ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Radio(
-                      value: 'Option 2',
-                      groupValue: _selectedOption,
-                      onChanged: (String? value) {
-                        setState(() {
-                          _selectedOption = value!;
-                        });
-                      },
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.borderGray,
+                          child: const Icon(Icons.edit),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("Add Note")
+                      ],
                     ),
-                    const Expanded(
-                        child: Text("I agree to the terms and conditions"))
-                  ],
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 46,
-                        decoration: UtilityClass.setButtonDecoration(
-                            AppColors.inactiveColor!),
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              "CHECK OUT",
-                              overflow: TextOverflow.ellipsis,
-                              style: FontClass.buttonStyleWhiteNoSpacing,
-                            )),
-                      ),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.borderGray,
+                          child: const Icon(Icons.percent),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("Coupon")
+                      ],
                     ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 46,
-                        decoration: UtilityClass.buttonDecorationOnlyOutline,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              "VIEW CART",
-                              overflow: TextOverflow.ellipsis,
-                              style: FontClass.infoLabelGray,
-                            )),
-                      ),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.borderGray,
+                          child: const Icon(Icons.local_shipping_outlined),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("Shipping")
+                      ],
                     )
                   ],
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Divider(),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text("Subtotal:"), Text("N15,000")],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                  child: Text("Taxes and shipping calculated at checkout"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 'Option 2',
+                        groupValue: _selectedOption,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedOption = value!;
+                          });
+                        },
+                      ),
+                      const Expanded(
+                          child: Text("I agree to the terms and conditions"))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 46,
+                          decoration: UtilityClass.setButtonDecoration(
+                              AppColors.inactiveColor!),
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                "CHECK OUT",
+                                overflow: TextOverflow.ellipsis,
+                                style: FontClass.buttonStyleWhiteNoSpacing,
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 46,
+                          decoration: UtilityClass.buttonDecorationOnlyOutline,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                "VIEW CART",
+                                overflow: TextOverflow.ellipsis,
+                                style: FontClass.infoLabelGray,
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      );
+    });
   }
 
   Widget cartItem() {

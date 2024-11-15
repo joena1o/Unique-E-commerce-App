@@ -1,6 +1,8 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/cart_provider.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/wishlist_provider.dart';
 import 'package:beunique_ecommerce/features/product_screen/data/models/product_model.dart';
 import 'package:beunique_ecommerce/features/product_screen/presentation/widgets/expanded_list_section.dart';
 import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
@@ -23,6 +25,8 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   String _selectedOption = 'Option 1';
+
+  int numberOfItems = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -168,24 +172,36 @@ class _ProductScreenState extends State<ProductScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.borderGray)),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.plus,
-                            size: 16,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() => numberOfItems++);
+                            },
+                            child: const FaIcon(
+                              FontAwesomeIcons.plus,
+                              size: 16,
+                            ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
-                          Text("1"),
-                          SizedBox(
+                          Text(numberOfItems.toString()),
+                          const SizedBox(
                             width: 15,
                           ),
-                          FaIcon(
-                            FontAwesomeIcons.minus,
-                            size: 16,
+                          GestureDetector(
+                            onTap: () {
+                              if (numberOfItems > 1) {
+                                setState(() => numberOfItems--);
+                              }
+                            },
+                            child: const FaIcon(
+                              FontAwesomeIcons.minus,
+                              size: 16,
+                            ),
                           ),
                         ],
                       ),
@@ -200,7 +216,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         decoration: UtilityClass.setButtonDecoration(
                             AppColors.darkColor),
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<CartProvider>().addProduct(
+                                  singleProduct,
+                                  size: numberOfItems.toString());
+                            },
                             child: Text(
                               "ADD TO CART",
                               overflow: TextOverflow.ellipsis,
@@ -211,15 +231,28 @@ class _ProductScreenState extends State<ProductScreen> {
                     const SizedBox(
                       width: 12,
                     ),
-                    Container(
-                        height: 47,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.borderGray)),
-                        child: const Icon(
-                          Icons.favorite_outline,
-                          size: 20,
-                        ))
+                    Consumer<WishlistProvider>(
+                        builder: (context, provider, child) {
+                      return GestureDetector(
+                        onTap: () {
+                          context
+                              .read<WishlistProvider>()
+                              .addWishList(singleProduct);
+                        },
+                        child: Container(
+                            height: 47,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: AppColors.borderGray)),
+                            child: Icon(
+                              provider.wishList.contains(singleProduct)
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
+                              size: 20,
+                            )),
+                      );
+                    })
                   ],
                 ),
               ),

@@ -79,4 +79,7 @@ class FontClass {
 
   static TextStyle bottomNavStyleBlack = const TextStyle(
       fontSize: 11, fontWeight: FontWeight.normal, color: Colors.black);
+
+  static TextStyle priceFont = const TextStyle(
+      fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black);
 }

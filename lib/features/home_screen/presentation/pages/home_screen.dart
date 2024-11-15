@@ -111,42 +111,49 @@ class _HomeScreenState extends State<HomeScreen>
             Positioned(
               top: 70,
               right: 30,
-              child: PopupMenuButton<Currency>(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                position: PopupMenuPosition.under,
-                onSelected: (value) {
-                  // Handle menu item selection
-                  context.read<HomeProvider>().setCurrency(value);
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.lightColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    padding: const EdgeInsets.all(10),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.cancel_rounded),
-                        SizedBox(width: 20),
-                        Text("NGN"),
-                        SizedBox(width: 20),
-                        Icon(Icons.keyboard_arrow_down)
-                      ],
-                    )),
-                itemBuilder: (BuildContext context) => const [
-                  PopupMenuItem(
-                    value: Currency.nigeria,
-                    child: Text("NGN"),
-                  ),
-                  PopupMenuItem(
-                    value: Currency.usd,
-                    child: Text("USD"),
-                  ),
-                  PopupMenuItem(
-                    value: Currency.euros,
-                    child: Text("EUR"),
-                  ),
-                ],
-              ),
+              child:
+                  Consumer<HomeProvider>(builder: (context, provider, child) {
+                return PopupMenuButton<Currency>(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  position: PopupMenuPosition.under,
+                  onSelected: (value) {
+                    // Handle menu item selection
+                    context.read<HomeProvider>().setCurrency(value);
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.lightColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.cancel_rounded),
+                          const SizedBox(width: 20),
+                          provider.selectedCurrency == Currency.nigeria
+                              ? const Text("NGN")
+                              : provider.selectedCurrency == Currency.euros
+                                  ? const Text("EUR")
+                                  : const Text("USD"),
+                          const SizedBox(width: 20),
+                          const Icon(Icons.keyboard_arrow_down)
+                        ],
+                      )),
+                  itemBuilder: (BuildContext context) => const [
+                    PopupMenuItem(
+                      value: Currency.nigeria,
+                      child: Text("NGN"),
+                    ),
+                    PopupMenuItem(
+                      value: Currency.usd,
+                      child: Text("USD"),
+                    ),
+                    PopupMenuItem(
+                      value: Currency.euros,
+                      child: Text("EUR"),
+                    ),
+                  ],
+                );
+              }),
             ),
             Positioned(
               top: 0,
