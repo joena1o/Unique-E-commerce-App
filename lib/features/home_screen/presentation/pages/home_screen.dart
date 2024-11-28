@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
+    context.read<HomeProvider>().setScrollCallback(scrollerCallBack);
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -230,6 +231,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     GestureDetector(
                         onTap: () {
+                          context.read<HomeProvider>().scrollToTop();
                           context.read<HomeProvider>().setCategoryValue("All");
                           context.go('/products', extra: true);
                         },
@@ -257,6 +259,7 @@ class _HomeScreenState extends State<HomeScreen>
                         )),
                     GestureDetector(
                         onTap: () {
+                          context.read<HomeProvider>().scrollToTop();
                           context.go('/account');
                         },
                         child: Column(
@@ -271,6 +274,7 @@ class _HomeScreenState extends State<HomeScreen>
                         )),
                     GestureDetector(
                         onTap: () {
+                          context.read<HomeProvider>().scrollToTop();
                           context.go('/wishlist');
                         },
                         child: Column(
@@ -417,6 +421,13 @@ class _HomeScreenState extends State<HomeScreen>
           _controller.reverse();
         }
       }
+    }
+  }
+
+  void scrollerCallBack() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(0.0,
+          duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
     }
   }
 }

@@ -100,6 +100,7 @@ class _ProductGridViewState extends State<ProductGridView>
                       children: [
                         GestureDetector(
                           onTap: () {
+                            context.read<HomeProvider>().scrollToTop();
                             GoRouter.of(context).go('/product', extra: product);
                           },
                           child: FadeTransition(

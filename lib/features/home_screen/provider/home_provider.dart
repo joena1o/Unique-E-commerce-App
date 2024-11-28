@@ -13,6 +13,16 @@ class HomeProvider extends ChangeNotifier {
   String? seletedCategory;
   List<FashionProduct> categoryProducts = [];
 
+  Function? scrollCallBack;
+
+  setScrollCallback(Function scrollCallbackValue) {
+    scrollCallBack = scrollCallbackValue;
+  }
+
+  scrollToTop() {
+    scrollCallBack!();
+  }
+
   setCategoryValue(String? category) {
     seletedCategory = category;
     if (category == "All") {
