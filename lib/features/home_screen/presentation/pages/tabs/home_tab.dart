@@ -72,6 +72,9 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           height: 30,
         ),
         const ProductGridView(),
+        const SizedBox(
+          height: 20,
+        ),
         const CarouselArea(),
         const BottomBanner(),
         const SizedBox(
