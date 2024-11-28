@@ -12,9 +12,12 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ProductGridView extends StatefulWidget {
-  const ProductGridView({super.key, this.products});
+  const ProductGridView(
+      {super.key, this.products, this.fromState, this.fromCategory});
 
   final List<FashionProduct>? products;
+  final bool? fromState;
+  final bool? fromCategory;
 
   @override
   State<ProductGridView> createState() => _ProductGridViewState();
@@ -31,11 +34,11 @@ class _ProductGridViewState extends State<ProductGridView>
   void initState() {
     super.initState();
 
-    if (widget.products == null) {
+    if (widget.products == null && widget.fromState != true) {
       products = UtilityClass.fashionStoreProducts
           .map((e) => FashionProduct.fromMap(e))
           .toList();
-    } else {
+    } else if (widget.products != null) {
       products = widget.products!;
     }
 
@@ -64,14 +67,22 @@ class _ProductGridViewState extends State<ProductGridView>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.fromState == true) {
+      // Displays Product from search Result
+      products = context.watch<HomeProvider>().searchedProducts;
+    }
+    if (widget.fromCategory == true) {
+      // Displays Product from Categories
+      products = context.watch<HomeProvider>().categoryProducts;
+    }
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Container(
           margin: Responsive.isMobile(context)
-              ? EdgeInsets.zero
+              ? const EdgeInsets.symmetric(horizontal: 10)
               : EdgeInsets.symmetric(
-                  horizontal: Responsive.getSize(context).width * .05),
+                  horizontal: Responsive.getSize(context).width * .14),
           padding: const EdgeInsets.all(15.0),
           child:
               Consumer<WishlistProvider>(builder: (context, provider, child) {
@@ -89,7 +100,7 @@ class _ProductGridViewState extends State<ProductGridView>
                       children: [
                         GestureDetector(
                           onTap: () {
-                            context.go('/product', extra: product);
+                            GoRouter.of(context).go('/product', extra: product);
                           },
                           child: FadeTransition(
                             opacity: _animation,
@@ -122,7 +133,9 @@ class _ProductGridViewState extends State<ProductGridView>
                                           color: AppColors.lightColor,
                                         ),
                                         child: Icon(
-                                          provider.wishList.contains(product)
+                                          provider.wishList.any((e) =>
+                                                  product.productName ==
+                                                  e.productName)
                                               ? Icons.favorite
                                               : Icons.favorite_border,
                                           size: 18,

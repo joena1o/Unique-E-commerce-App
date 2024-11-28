@@ -8,12 +8,16 @@ class WishlistProvider extends ChangeNotifier {
   List<FashionProduct> get getWishist => wishList;
 
   void addWishList(FashionProduct product) {
-    if (wishList.contains(product)) {
-      wishList.remove(product);
+    if (wishList.any((e) => product.productName == e.productName)) {
+      int index =
+          wishList.lastIndexWhere((e) => e.productName == product.productName);
+      wishList.removeAt(index);
+
       getIt<DialogServices>()
           .showMessageError("Item has been removed from wishlist");
     } else {
-      wishList.add(product);
+      wishList = [...wishList, product].toList();
+
       getIt<DialogServices>().showMessage("Item added to wishlist");
     }
     notifyListeners();

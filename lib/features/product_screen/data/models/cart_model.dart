@@ -8,7 +8,7 @@ class CartItem {
   CartItem({
     required this.product,
     this.size,
-    this.quantity = 1,
+    this.quantity = 0,
   });
 
   // Convert to a Map
@@ -24,7 +24,7 @@ class CartItem {
   factory CartItem.fromMap(Map<String, dynamic> data) {
     return CartItem(
       product: FashionProduct.fromMap(data['product']),
-      size: data['size'] as String?,
+      size: data['size'] as String,
       quantity: data['quantity'] as int,
     );
   }

@@ -1,5 +1,8 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/cart_provider.dart';
+import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
+import 'package:beunique_ecommerce/features/product_screen/data/models/cart_model.dart';
+import 'package:beunique_ecommerce/features/wigdets/image_widget.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,7 @@ class EndDrawerItems extends StatefulWidget {
 }
 
 class _EndDrawerItemsState extends State<EndDrawerItems> {
-  String _selectedOption = 'Option 1';
+  String _selectedOption = '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +37,15 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
-            child: const Text("Congratulations, you have free shipping!"),
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+            //child: const Text("Congratulations, you have free shipping!"),
           ),
           Expanded(
               child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   itemCount: provider.items.length,
                   itemBuilder: (BuildContext ctx, int i) {
-                    return cartItem();
+                    return cartItem(provider.items[i]);
                   })),
           Container(
             padding: const EdgeInsets.only(top: 25, bottom: 10),
@@ -98,11 +101,15 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Divider(),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Subtotal:"), Text("N15,000")],
+                    children: [
+                      const Text("Subtotal:"),
+                      Text(context.read<HomeProvider>().calculateAmount(
+                          context.read<CartProvider>().totalPrice))
+                    ],
                   ),
                 ),
                 const Padding(
@@ -139,7 +146,9 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                         child: Container(
                           height: 46,
                           decoration: UtilityClass.setButtonDecoration(
-                              AppColors.inactiveColor!),
+                              _selectedOption.isNotEmpty
+                                  ? AppColors.darkColor
+                                  : AppColors.inactiveColor!),
                           child: ElevatedButton(
                               onPressed: () {},
                               child: Text(
@@ -176,7 +185,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
     });
   }
 
-  Widget cartItem() {
+  Widget cartItem(CartItem cartItem) {
     return Column(
       children: [
         Row(
@@ -188,6 +197,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
               decoration: BoxDecoration(
                 color: AppColors.inactiveColor,
               ),
+              child: ImageWidget(url: cartItem.product.image),
             ),
             const SizedBox(
               width: 30,
@@ -196,44 +206,45 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Sacki"),
-                const Text("Size: Medium"),
-                const Text("\$21.39"),
+                Text(cartItem.product.productName),
+                Visibility(
+                    visible: cartItem.size!.isNotEmpty,
+                    child: Text("Size: ${cartItem.size}")),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: GestureDetector(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.mode_edit_outlined,
-                        size: 18,
-                      )),
+                  child: Text(context
+                      .read<HomeProvider>()
+                      .calculateAmount(cartItem.product.price)),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Wrap(
                   alignment: WrapAlignment.start,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Container(
-                      height: 47,
+                      height: 42,
                       width: 100,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.borderGray)),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FaIcon(
+                          const FaIcon(
                             FontAwesomeIcons.plus,
                             size: 16,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
-                          Text("1"),
-                          SizedBox(
+                          Text(cartItem.quantity.toString()),
+                          const SizedBox(
                             width: 15,
                           ),
-                          FaIcon(
+                          const FaIcon(
                             FontAwesomeIcons.minus,
                             size: 16,
                           ),
@@ -244,7 +255,12 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                       width: 10,
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<CartProvider>().removeProduct(
+                              cartItem.product,
+                              quantity: cartItem.quantity,
+                              size: cartItem.size);
+                        },
                         child: const Text(
                           "Remove",
                           style: TextStyle(fontSize: 14),

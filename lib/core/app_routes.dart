@@ -23,8 +23,10 @@ final GoRouter _router = GoRouter(
         GoRoute(
           path: '/products',
           name: 'products',
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: ProductTab()),
+          pageBuilder: (context, state) => NoTransitionPage(
+              child: ProductTab(
+            categoryType: state.extra as bool?,
+          )),
         ),
         GoRoute(
           path: '/account',
@@ -45,13 +47,10 @@ final GoRouter _router = GoRouter(
               const NoTransitionPage(child: AboutUsScreen()),
         ),
         GoRoute(
-          path: '/product',
-          name: 'product',
-          pageBuilder: (context, state) {
-            return NoTransitionPage(
-                child: ProductScreen(product: state.extra as FashionProduct));
-          },
-        ),
+            path: '/product',
+            name: 'product',
+            pageBuilder: (context, state) => NoTransitionPage(
+                child: ProductScreen(product: state.extra as FashionProduct))),
       ],
     ),
   ],

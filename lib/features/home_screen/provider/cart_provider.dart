@@ -9,34 +9,29 @@ class CartProvider extends ChangeNotifier {
 
   CartProvider({List<CartItem>? initialItems}) : items = initialItems ?? [];
 
-  void addProduct(FashionProduct product, {String? size}) {
-    final existingItem = items.firstWhere(
-      (item) =>
-          item.product.productName == product.productName && item.size == size,
-      orElse: () => CartItem(product: product, size: size, quantity: 0),
-    );
-
-    if (existingItem.quantity == 0) {
-      items.add(CartItem(product: product, size: size));
+  void addProduct(FashionProduct product, {String? size, int? quantity}) {
+    final existingItem = items.indexWhere((item) =>
+        item.product.productName == product.productName && item.size == size);
+    if (existingItem == -1) {
+      items
+          .add(CartItem(product: product, size: size, quantity: quantity ?? 1));
     } else {
-      existingItem.quantity++;
+      items[existingItem].quantity = quantity!;
     }
     getIt<DialogServices>().showMessage("Item added to cart");
     notifyListeners();
   }
 
   // Remove a product or decrease its quantity
-  void removeProduct(FashionProduct product, {String? size}) {
-    final existingItem = items.firstWhere(
+  void removeProduct(FashionProduct product, {String? size, int? quantity}) {
+    final existingItem = items.indexWhere(
       (item) =>
-          item.product.productName == product.productName && item.size == size,
-      orElse: () => CartItem(product: product, size: size, quantity: 0),
+          item.product.productName == product.productName &&
+          item.size == size &&
+          item.quantity == quantity,
     );
-
-    if (existingItem.quantity > 1) {
-      existingItem.quantity--;
-    } else {
-      items.remove(existingItem);
+    if (existingItem != -1) {
+      items.remove(items[existingItem]);
     }
     getIt<DialogServices>().showMessageError("Item has been from cart");
     notifyListeners();
@@ -54,6 +49,8 @@ class CartProvider extends ChangeNotifier {
   int get totalItems => items.fold(0, (sum, item) => sum + item.quantity);
 
   // Get the total price of the cart
-  double get totalPrice =>
-      items.fold(0, (sum, item) => sum + (item.product.price * item.quantity));
+  double get totalPrice {
+    return items.fold(
+        0, (sum, item) => sum + item.product.price * item.quantity);
+  }
 }

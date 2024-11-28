@@ -28,7 +28,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   String _selectedOption = 'Option 1';
 
-  int numberOfItems = 1;
+  int quantity = 1;
   String size = "";
 
   @override
@@ -37,6 +37,9 @@ class _ProductScreenState extends State<ProductScreen> {
     return Responsive.isMobile(context)
         ? Column(
             children: [
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 padding: UtilityClass.horizontalAndVerticalPadding,
                 alignment: Alignment.centerLeft,
@@ -66,16 +69,18 @@ class _ProductScreenState extends State<ProductScreen> {
                 child: Text(singleProduct.productName,
                     style: FontClass.headerStyleBlackNormal),
               ),
-              Container(
-                width: Responsive.getSize(context).width,
-                alignment: Alignment.centerLeft,
-                padding: UtilityClass.horizontalPadding,
-                child: Text(
-                    context
-                        .read<HomeProvider>()
-                        .calculateAmount(singleProduct.price),
-                    style: FontClass.headerStyleBlack),
-              ),
+              Consumer<HomeProvider>(builder: (context, provider, child) {
+                return Container(
+                  width: Responsive.getSize(context).width,
+                  alignment: Alignment.centerLeft,
+                  padding: UtilityClass.horizontalPadding,
+                  child: Text(
+                      context
+                          .read<HomeProvider>()
+                          .calculateAmount(singleProduct.price),
+                      style: FontClass.headerStyleBlack),
+                );
+              }),
               Container(
                 width: Responsive.getSize(context).width,
                 alignment: Alignment.centerLeft,
@@ -140,15 +145,18 @@ class _ProductScreenState extends State<ProductScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Padding(
-                  padding: UtilityClass.horizontalAndVerticalPadding,
-                  child: const Row(
-                    children: [
-                      Text(
-                        "SIZE: MEDIUM",
-                      )
-                    ],
-                  )),
+              Visibility(
+                visible: singleProduct.sizes.isNotEmpty,
+                child: Padding(
+                    padding: UtilityClass.horizontalAndVerticalPadding,
+                    child: Row(
+                      children: [
+                        Text(
+                          "SIZE: ${size == "" ? " Not Selected" : size}",
+                        )
+                      ],
+                    )),
+              ),
               Padding(
                 padding: UtilityClass.horizontalPadding,
                 child: Row(
@@ -162,7 +170,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 10),
                           margin: const EdgeInsets.only(right: 10),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -201,7 +210,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              setState(() => numberOfItems++);
+                              setState(() => quantity++);
                             },
                             child: const FaIcon(
                               FontAwesomeIcons.plus,
@@ -211,14 +220,14 @@ class _ProductScreenState extends State<ProductScreen> {
                           const SizedBox(
                             width: 15,
                           ),
-                          Text(numberOfItems.toString()),
+                          Text(quantity.toString()),
                           const SizedBox(
                             width: 15,
                           ),
                           GestureDetector(
                             onTap: () {
-                              if (numberOfItems > 1) {
-                                setState(() => numberOfItems--);
+                              if (quantity > 1) {
+                                setState(() => quantity--);
                               }
                             },
                             child: const FaIcon(
@@ -241,13 +250,17 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: ElevatedButton(
                             onPressed: () {
                               if (singleProduct.sizes.isNotEmpty &&
-                                  size.isEmpty) {
+                                  size == "") {
                                 return getIt<DialogServices>().showMessageError(
                                     "Please select your preferred size");
                               }
                               context.read<CartProvider>().addProduct(
                                   singleProduct,
-                                  size: numberOfItems.toString());
+                                  size: size,
+                                  quantity: quantity);
+                              setState(() {
+                                size = "";
+                              });
                             },
                             child: Text(
                               "ADD TO CART",
@@ -274,7 +287,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                 border:
                                     Border.all(color: AppColors.borderGray)),
                             child: Icon(
-                              provider.wishList.contains(singleProduct)
+                              provider.wishList.any((e) =>
+                                      singleProduct.productName ==
+                                      e.productName)
                                   ? Icons.favorite
                                   : Icons.favorite_outline,
                               size: 20,
@@ -431,10 +446,13 @@ class _ProductScreenState extends State<ProductScreen> {
         : Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: Responsive.isDesktop(context)
-                    ? Responsive.getSize(context).width * .05
-                    : 0),
+                    ? Responsive.getSize(context).width * .07
+                    : 20),
             child: Column(
               children: [
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
                   padding: UtilityClass.horizontalAndVerticalPadding,
                   alignment: Alignment.centerLeft,
@@ -442,6 +460,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     items: <BreadCrumbItem>[
                       BreadCrumbItem(content: const Text('Home')),
                       BreadCrumbItem(content: const Text('Products')),
+                      BreadCrumbItem(content: Text(singleProduct.productName)),
                     ],
                     divider: Icon(
                       Icons.chevron_right,
@@ -457,6 +476,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 600,
                         margin: UtilityClass.horizontalPadding,
                         decoration: const BoxDecoration(color: Colors.grey),
+                        child: ImageWidget(url: singleProduct.image),
                       ),
                     ),
                     SizedBox(
@@ -469,16 +489,22 @@ class _ProductScreenState extends State<ProductScreen> {
                             width: Responsive.getSize(context).width,
                             alignment: Alignment.centerLeft,
                             padding: UtilityClass.horizontalPadding,
-                            child: Text("Products",
+                            child: Text(singleProduct.productName,
                                 style: FontClass.headerStyleBlackNormal),
                           ),
-                          Container(
-                            width: Responsive.getSize(context).width,
-                            alignment: Alignment.centerLeft,
-                            padding: UtilityClass.horizontalPadding,
-                            child: Text("N15,000",
-                                style: FontClass.headerStyleBlack),
-                          ),
+                          Consumer<HomeProvider>(
+                              builder: (context, provider, child) {
+                            return Container(
+                              width: Responsive.getSize(context).width,
+                              alignment: Alignment.centerLeft,
+                              padding: UtilityClass.horizontalPadding,
+                              child: Text(
+                                  context
+                                      .read<HomeProvider>()
+                                      .calculateAmount(singleProduct.price),
+                                  style: FontClass.headerStyleBlack),
+                            );
+                          }),
                           Container(
                             width: Responsive.getSize(context).width,
                             alignment: Alignment.centerLeft,
@@ -546,54 +572,57 @@ class _ProductScreenState extends State<ProductScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Padding(
-                              padding:
-                                  UtilityClass.horizontalAndVerticalPadding,
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    "SIZE: MEDIUM",
-                                  )
-                                ],
-                              )),
+                          Visibility(
+                            visible: singleProduct.sizes.isNotEmpty,
+                            child: Padding(
+                                padding:
+                                    UtilityClass.horizontalAndVerticalPadding,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "SIZE: ${size == "" ? " Not Selected" : size}",
+                                    )
+                                  ],
+                                )),
+                          ),
                           Padding(
                             padding: UtilityClass.horizontalPadding,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration:
-                                      UtilityClass.setButtonOutlineDecoration(
-                                          AppColors.borderGray),
-                                  child: const Text("X-Large"),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration:
-                                      UtilityClass.setButtonOutlineDecoration(
-                                          AppColors.borderGray),
-                                  child: const Text("Large"),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration:
-                                      UtilityClass.setButtonOutlineDecoration(
-                                          AppColors.borderGray),
-                                  child: const Text("Medium"),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration:
-                                      UtilityClass.setButtonOutlineDecoration(
-                                          AppColors.borderGray),
-                                  child: const Text("Small"),
-                                )
-                              ],
+                              children: List.generate(
+                                  singleProduct.sizes.length, (sizeIndex) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      size = singleProduct.sizes[sizeIndex];
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    margin: const EdgeInsets.only(right: 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.borderGray,
+                                          width: 1),
+                                      color:
+                                          singleProduct.sizes[sizeIndex] == size
+                                              ? Colors.black
+                                              : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    child: Text(
+                                      singleProduct.sizes[sizeIndex],
+                                      style: TextStyle(
+                                        color: singleProduct.sizes[sizeIndex] ==
+                                                size
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
                             ),
                           ),
                           Container(
@@ -609,26 +638,38 @@ class _ProductScreenState extends State<ProductScreen> {
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           color: AppColors.borderGray)),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        size: 16,
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() => quantity++);
+                                        },
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.plus,
+                                          size: 16,
+                                        ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 15,
                                       ),
-                                      Text("1"),
-                                      SizedBox(
+                                      Text(quantity.toString()),
+                                      const SizedBox(
                                         width: 15,
                                       ),
-                                      FaIcon(
-                                        FontAwesomeIcons.minus,
-                                        size: 16,
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (quantity > 1) {
+                                            setState(() => quantity--);
+                                          }
+                                        },
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.minus,
+                                          size: 16,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -643,7 +684,22 @@ class _ProductScreenState extends State<ProductScreen> {
                                         UtilityClass.setButtonDecoration(
                                             AppColors.darkColor),
                                     child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if (singleProduct.sizes.isNotEmpty &&
+                                              size == "") {
+                                            return getIt<DialogServices>()
+                                                .showMessageError(
+                                                    "Please select your preferred size");
+                                          }
+                                          context
+                                              .read<CartProvider>()
+                                              .addProduct(singleProduct,
+                                                  size: size,
+                                                  quantity: quantity);
+                                          setState(() {
+                                            size = "";
+                                          });
+                                        },
                                         child: Text(
                                           "ADD TO CART",
                                           overflow: TextOverflow.ellipsis,
@@ -651,16 +707,29 @@ class _ProductScreenState extends State<ProductScreen> {
                                         )),
                                   ),
                                 ),
-                                Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: AppColors.borderGray)),
-                                    child: const Icon(
-                                      Icons.favorite_outline,
-                                      size: 20,
-                                    ))
+                                Consumer<WishlistProvider>(
+                                    builder: (context, provider, child) {
+                                  return GestureDetector(
+                                      onTap: () {
+                                        context
+                                            .read<WishlistProvider>()
+                                            .addWishList(singleProduct);
+                                      },
+                                      child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 20),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: AppColors.borderGray)),
+                                          child: Icon(
+                                            provider.wishList.any((e) =>
+                                                    singleProduct.productName ==
+                                                    e.productName)
+                                                ? Icons.favorite
+                                                : Icons.favorite_outline,
+                                            size: 20,
+                                          )));
+                                })
                               ],
                             ),
                           ),

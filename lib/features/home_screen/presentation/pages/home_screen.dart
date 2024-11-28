@@ -5,6 +5,7 @@ import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/lin
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/full_screen_widgets/full_screen_navbar.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/info_banner.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/mobile_navbar.dart';
+import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/product_grid_view.dart';
 import 'package:beunique_ecommerce/features/home_screen/presentation/widgets/top_banner.dart';
 import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.dart';
 import 'package:beunique_ecommerce/main.dart';
@@ -38,16 +39,13 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
-
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInCubic),
     );
-
     super.initState();
   }
 
@@ -95,7 +93,13 @@ class _HomeScreenState extends State<HomeScreen>
                                 _scaffoldKey.currentState?.openDrawer(),
                             openSearch: () => openSearch(),
                           )
-                        : const FullScreenNavbar(),
+                        : FullScreenNavbar(
+                            openEndDrawer: () =>
+                                {_scaffoldKey.currentState?.openEndDrawer()},
+                            openDrawer: () =>
+                                _scaffoldKey.currentState?.openDrawer(),
+                            openSearch: () => openSearch(),
+                          ),
                     widget.child,
                     const SizedBox(
                       height: 40,
@@ -107,6 +111,34 @@ class _HomeScreenState extends State<HomeScreen>
                   ],
                 );
               }),
+            ),
+            Positioned(
+              top: 0,
+              child: AnimatedOpacity(
+                opacity: showNavBar ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 500),
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: SizedBox(
+                    width: Responsive.getSize(context).width,
+                    child: Responsive.isMobile(context)
+                        ? MobileNavbar(
+                            openEndDrawer: () =>
+                                _scaffoldKey.currentState?.openEndDrawer(),
+                            openDrawer: () =>
+                                _scaffoldKey.currentState?.openDrawer(),
+                            openSearch: () => openSearch(),
+                          )
+                        : FullScreenNavbar(
+                            openEndDrawer: () =>
+                                {_scaffoldKey.currentState?.openEndDrawer()},
+                            openDrawer: () =>
+                                _scaffoldKey.currentState?.openDrawer(),
+                            openSearch: () => openSearch(),
+                          ),
+                  ),
+                ),
+              ),
             ),
             Positioned(
               top: 70,
@@ -155,28 +187,6 @@ class _HomeScreenState extends State<HomeScreen>
                 );
               }),
             ),
-            Positioned(
-              top: 0,
-              child: AnimatedOpacity(
-                opacity: showNavBar ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 500),
-                child: FadeTransition(
-                  opacity: _animation,
-                  child: SizedBox(
-                    width: Responsive.getSize(context).width,
-                    child: Responsive.isMobile(context)
-                        ? MobileNavbar(
-                            openEndDrawer: () =>
-                                _scaffoldKey.currentState?.openEndDrawer(),
-                            openDrawer: () =>
-                                _scaffoldKey.currentState?.openDrawer(),
-                            openSearch: () => openSearch(),
-                          )
-                        : const FullScreenNavbar(),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -220,7 +230,8 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     GestureDetector(
                         onTap: () {
-                          context.go('/products');
+                          context.read<HomeProvider>().setCategoryValue("All");
+                          context.go('/products', extra: true);
                         },
                         child: Column(
                           children: [
@@ -233,61 +244,7 @@ class _HomeScreenState extends State<HomeScreen>
                         )),
                     GestureDetector(
                         onTap: () {
-                          showTopSheet(
-                            context,
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        overlayEntry.remove();
-                                      },
-                                      icon: const Icon(Icons.close),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: AppColors
-                                                .borderGray, // Border color
-                                            width: 2.0, // Border width
-                                            style: BorderStyle
-                                                .solid, // Border style
-                                          ),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextFormField(
-                                                decoration: InputDecoration(
-                                                    suffixIcon: IconButton(
-                                                      onPressed: () {},
-                                                      icon: const Icon(
-                                                          Icons.search),
-                                                    ),
-                                                    border: InputBorder.none,
-                                                    enabledBorder:
-                                                        InputBorder.none,
-                                                    focusedBorder:
-                                                        InputBorder.none,
-                                                    hintText: "Search..")),
-                                          )
-                                        ],
-                                      )),
-                                  Container(height: 200)
-                                ],
-                              ),
-                            ),
-                          );
+                          openSearch();
                         },
                         child: Column(
                           children: [
@@ -368,53 +325,80 @@ class _HomeScreenState extends State<HomeScreen>
   void openSearch() {
     showTopSheet(
       context,
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: IconButton(
-                onPressed: () {
-                  overlayEntry.remove();
-                },
-                icon: const Icon(Icons.close),
+      Consumer<HomeProvider>(builder: (context, provider, child) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  onPressed: () {
+                    overlayEntry.remove();
+                  },
+                  icon: const Icon(Icons.close),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.borderGray, // Border color
-                      width: 2.0, // Border width
-                      style: BorderStyle.solid, // Border style
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: AppColors.borderGray, // Border color
+                        width: 2.0, // Border width
+                        style: BorderStyle.solid, // Border style
+                      ),
                     ),
                   ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                            onChanged: (String text) {
+                              provider.setSearchText(text);
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.search),
+                                ),
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: "Search..")),
+                      )
+                    ],
+                  )),
+              Visibility(
+                visible: provider.searchText != "",
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Text("Searching for ${provider.searchText}"),
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.search),
-                              ),
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              hintText: "Search..")),
-                    )
-                  ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: provider.searchText.isEmpty
+                    ? 0
+                    : Responsive.getSize(context).height / 2,
+                child: const SingleChildScrollView(
+                    child: ProductGridView(
+                  fromState: true,
                 )),
-            Container(height: 200)
-          ],
-        ),
-      ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 

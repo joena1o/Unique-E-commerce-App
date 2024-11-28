@@ -1,6 +1,7 @@
 import 'package:beunique_ecommerce/core/app_colors.dart';
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MobileNavbar extends StatefulWidget {
   const MobileNavbar(
@@ -44,7 +45,10 @@ class _MobileNavbarState extends State<MobileNavbar> {
           Text("UNIQUE", style: FontClass.headerStyleBlack),
           const Spacer(),
           IconButton(
-              onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+              onPressed: () {
+                context.go('/wishlist');
+              },
+              icon: const Icon(Icons.favorite_outline)),
           IconButton(
               onPressed: () {
                 widget.openEndDrawer();
