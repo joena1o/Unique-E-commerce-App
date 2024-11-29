@@ -57,7 +57,8 @@ class _ProductTabState extends State<ProductTab> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
-                    decoration: UtilityClass.buttonDecorationOnlyOutline,
+                    decoration: UtilityClass.setButtonOutlineDecoration(
+                        AppColors.borderGray),
                     child: Row(
                       children: [
                         const Icon(

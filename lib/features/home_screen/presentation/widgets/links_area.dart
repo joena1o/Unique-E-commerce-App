@@ -37,6 +37,12 @@ class _LinksAreaState extends State<LinksArea> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: Responsive.isMobile(context)
+              ? 20
+              : Responsive.isTablet(context)
+                  ? Responsive.getSize(context).width * 0.05
+                  : Responsive.getSize(context).width * 0.1),
       decoration: const BoxDecoration(color: Color(0xfff5f5f5)),
       child: Responsive.isMobile(context)
           ? Column(
@@ -344,11 +350,12 @@ class _LinksAreaState extends State<LinksArea> {
                                     ),
                                     Container(
                                       height: 48,
+                                      width: 48,
                                       decoration: UtilityClass
                                           .setButtonOutlineDecoration(
                                               AppColors.inactiveColor!),
-                                      child: ElevatedButton(
-                                          onPressed: () {},
+                                      child: GestureDetector(
+                                          onTap: () {},
                                           child: const Icon(
                                             Icons.arrow_right_alt,
                                             color: Colors.black,
@@ -376,8 +383,7 @@ class _LinksAreaState extends State<LinksArea> {
                                   children: [
                                     Text(
                                       "Get In Touch with us",
-                                      style:
-                                          FontClass.headerStyleMediumBlack,
+                                      style: FontClass.headerStyleMediumBlack,
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -407,8 +413,7 @@ class _LinksAreaState extends State<LinksArea> {
                                   children: [
                                     Text(
                                       "Collection",
-                                      style:
-                                          FontClass.headerStyleMediumBlack,
+                                      style: FontClass.headerStyleMediumBlack,
                                     ),
                                     const SizedBox(
                                       height: 20,

@@ -70,7 +70,11 @@ class _HomeScreenState extends State<HomeScreen>
       endDrawer: Drawer(
         shape: const RoundedRectangleBorder(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        width: Responsive.getSize(context).width * .9,
+        width: Responsive.isMobile(context)
+            ? Responsive.getSize(context).width * .76
+            : Responsive.isTablet(context)
+                ? Responsive.getSize(context).width * .5
+                : Responsive.getSize(context).width * .4,
         child: EndDrawerItems(
             callback: () => {_scaffoldKey.currentState?.closeEndDrawer()}),
       ),
@@ -142,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Positioned(
-              top: 70,
+              top: 187,
               right: 30,
               child:
                   Consumer<HomeProvider>(builder: (context, provider, child) {

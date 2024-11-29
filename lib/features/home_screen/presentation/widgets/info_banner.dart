@@ -10,7 +10,7 @@ class InfoBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.borderGray,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       child: Row(
         mainAxisAlignment: Responsive.isMobile(context)
             ? MainAxisAlignment.center

@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp.router(
             routerConfig: router,
-            title: 'Flutter Demo',
+            title: "Unique's Store",
             scaffoldMessengerKey: rootScaffoldMessengerKey,
             debugShowCheckedModeBanner: false,
             theme: MainAppTheme.lightTheme,

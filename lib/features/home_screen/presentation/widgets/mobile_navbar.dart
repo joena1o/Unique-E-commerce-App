@@ -42,7 +42,11 @@ class _MobileNavbarState extends State<MobileNavbar> {
               },
               icon: const Icon(Icons.search)),
           const Spacer(),
-          Text("UNIQUE", style: FontClass.headerStyleBlack),
+          GestureDetector(
+              onTap: () {
+                context.go("/");
+              },
+              child: Text("UNIQUE", style: FontClass.headerStyleBlack)),
           const Spacer(),
           IconButton(
               onPressed: () {

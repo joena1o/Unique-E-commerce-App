@@ -35,9 +35,12 @@ class _AccountTabState extends State<AccountTab> {
   Widget build(BuildContext context) {
     return Container(
       margin: Responsive.isMobile(context)
-          ? EdgeInsets.zero
-          : EdgeInsets.symmetric(
-              horizontal: Responsive.getSize(context).width * .08),
+          ? const EdgeInsets.symmetric(horizontal: 15)
+          : Responsive.isTablet(context)
+              ? EdgeInsets.symmetric(
+                  horizontal: Responsive.getSize(context).width * .15)
+              : EdgeInsets.symmetric(
+                  horizontal: Responsive.getSize(context).width * .25),
       width: double.infinity,
       child: Form(
         key: formKey,

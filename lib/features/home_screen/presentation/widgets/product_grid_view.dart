@@ -81,105 +81,134 @@ class _ProductGridViewState extends State<ProductGridView>
         Container(
           margin: Responsive.isMobile(context)
               ? const EdgeInsets.symmetric(horizontal: 10)
-              : EdgeInsets.symmetric(
-                  horizontal: Responsive.getSize(context).width * .14),
+              : Responsive.isTablet(context)
+                  ? const EdgeInsets.symmetric(horizontal: 40)
+                  : EdgeInsets.symmetric(
+                      horizontal: Responsive.getSize(context).width * .14),
           padding: const EdgeInsets.all(15.0),
           child:
               Consumer<WishlistProvider>(builder: (context, provider, child) {
-            return SingleChildScrollView(
-              child: StaggeredGrid.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  axisDirection: AxisDirection.down,
-                  crossAxisSpacing: 20,
-                  children: List.generate(products.length, (index) {
-                    final product = products[index];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            context.read<HomeProvider>().scrollToTop();
-                            GoRouter.of(context).go('/product', extra: product);
-                          },
-                          child: FadeTransition(
-                            opacity: _animation,
-                            child: SizedBox(
-                              width: size.width * .5,
-                              height: index % 2 == 0
-                                  ? size.width * .60
-                                  : size.width * .54,
-                              child: Stack(
-                                children: [
-                                  SizedBox(
+            return products.isEmpty
+                ? Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      const Text("No Items found"),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Icon(
+                        Icons.remove_shopping_cart_outlined,
+                        size: 154,
+                        color: AppColors.inactiveColor,
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                    ],
+                  )
+                : SingleChildScrollView(
+                    child: StaggeredGrid.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 25,
+                        axisDirection: AxisDirection.down,
+                        crossAxisSpacing: 25,
+                        children: List.generate(products.length, (index) {
+                          final product = products[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<HomeProvider>().scrollToTop();
+                                  GoRouter.of(context)
+                                      .go('/product', extra: product);
+                                },
+                                child: FadeTransition(
+                                  opacity: _animation,
+                                  child: SizedBox(
                                     width: size.width * .5,
                                     height: index % 2 == 0
                                         ? size.width * .60
                                         : size.width * .54,
-                                    child: ImageWidget(url: product.image),
-                                  ),
-                                  Positioned(
-                                    top: 10,
-                                    right: 10,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        context
-                                            .read<WishlistProvider>()
-                                            .addWishList(product);
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.lightColor,
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: SizedBox(
+                                            width: size.width * .5,
+                                            height: index % 2 == 0
+                                                ? size.width * .60
+                                                : size.width * .54,
+                                            child:
+                                                ImageWidget(url: product.image),
+                                          ),
                                         ),
-                                        child: Icon(
-                                          provider.wishList.any((e) =>
-                                                  product.productName ==
-                                                  e.productName)
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          size: 18,
+                                        Positioned(
+                                          top: 10,
+                                          right: 10,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<WishlistProvider>()
+                                                  .addWishList(product);
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(5),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.lightColor,
+                                              ),
+                                              child: Icon(
+                                                provider.wishList.any((e) =>
+                                                        product.productName ==
+                                                        e.productName)
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                size: 18,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Positioned(
+                                          top: 50,
+                                          right: 10,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.lightColor,
+                                            ),
+                                            child: const Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Positioned(
-                                    top: 50,
-                                    right: 10,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.lightColor,
-                                      ),
-                                      child: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                        size: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0, bottom: 5),
-                          child: Text(product.productName),
-                        ),
-                        Consumer<HomeProvider>(
-                            builder: (context, provider, child) {
-                          return Text(
-                            context
-                                .read<HomeProvider>()
-                                .calculateAmount(product.price),
-                            style: FontClass.priceFont,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 15.0, bottom: 5),
+                                child: Text(product.productName),
+                              ),
+                              Consumer<HomeProvider>(
+                                  builder: (context, provider, child) {
+                                return Text(
+                                  context
+                                      .read<HomeProvider>()
+                                      .calculateAmount(product.price),
+                                  style: FontClass.priceFont,
+                                );
+                              }),
+                            ],
                           );
-                        }),
-                      ],
-                    );
-                  })),
-            );
+                        })),
+                  );
           }),
         )
       ],

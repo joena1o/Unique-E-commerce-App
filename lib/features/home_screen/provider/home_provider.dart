@@ -15,6 +15,13 @@ class HomeProvider extends ChangeNotifier {
 
   Function? scrollCallBack;
 
+  bool sortItem = false;
+
+  setSortValue() {
+    sortItem != sortItem;
+    notifyListeners();
+  }
+
   setScrollCallback(Function scrollCallbackValue) {
     scrollCallBack = scrollCallbackValue;
   }

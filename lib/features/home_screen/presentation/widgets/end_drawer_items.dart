@@ -42,7 +42,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
           ),
           Expanded(
               child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   itemCount: provider.items.length,
                   itemBuilder: (BuildContext ctx, int i) {
                     return cartItem(provider.items[i]);
@@ -117,7 +117,7 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                   child: Text("Taxes and shipping calculated at checkout"),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,22 +158,6 @@ class _EndDrawerItemsState extends State<EndDrawerItems> {
                               )),
                         ),
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 46,
-                          decoration: UtilityClass.buttonDecorationOnlyOutline,
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text(
-                                "VIEW CART",
-                                overflow: TextOverflow.ellipsis,
-                                style: FontClass.infoLabelGray,
-                              )),
-                        ),
-                      )
                     ],
                   ),
                 ),

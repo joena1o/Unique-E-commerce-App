@@ -3,6 +3,7 @@ import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.d
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -36,17 +37,26 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("UNIQUE", style: FontClass.headerStyleBlack),
+            GestureDetector(
+                onTap: () {
+                  context.go("/");
+                },
+                child: Text("UNIQUE", style: FontClass.headerStyleBlack)),
             Expanded(
               child: Wrap(
                 alignment: WrapAlignment.center,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Text(
-                      "HOME",
-                      style: FontClass.navFontBlack,
+                  GestureDetector(
+                    onTap: () {
+                      context.go("/");
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
+                      child: Text(
+                        "HOME",
+                        style: FontClass.navFontBlack,
+                      ),
                     ),
                   ),
                   GestureDetector(
@@ -62,10 +72,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                       ),
                     ),
                   ),
-                  Wrap(
-                      children: List.generate(
-                          UtilityClass.uniqueCategories.length, (index) {
-                    final category = UtilityClass.uniqueCategories[index];
+                  ...UtilityClass.uniqueCategories.map((category) {
                     return GestureDetector(
                       onTap: () {
                         context.read<HomeProvider>().setCategoryValue(category);
@@ -80,7 +87,7 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                         ),
                       ),
                     );
-                  })),
+                  }),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -92,13 +99,28 @@ class _FullScreenNavbarState extends State<FullScreenNavbar> {
                 ],
               ),
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.person_outline)),
+                onPressed: () {
+                  widget.openSearch();
+                },
+                icon: const Icon(Icons.search)),
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+                onPressed: () {
+                  context.read<HomeProvider>().scrollToTop();
+                  context.go('/account');
+                },
+                icon: const Icon(Icons.person_outline)),
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.shopping_bag_outlined))
+                onPressed: () {
+                  context.read<HomeProvider>().scrollToTop();
+                  context.go('/wishlist');
+                },
+                icon: const Icon(Icons.favorite_outline)),
+            IconButton(
+                onPressed: () {
+                  widget.openEndDrawer();
+                },
+                icon: const Icon(Icons.shopping_bag_outlined))
           ],
         ),
       ),

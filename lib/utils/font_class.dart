@@ -39,7 +39,7 @@ class FontClass {
       color: Colors.black);
 
   static TextStyle headerStyleBlack = const TextStyle(
-      fontSize: 22,
+      fontSize: 25,
       fontWeight: FontWeight.w600,
       letterSpacing: 1.5,
       color: Colors.black);
