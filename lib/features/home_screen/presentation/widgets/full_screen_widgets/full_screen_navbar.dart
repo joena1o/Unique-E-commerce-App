@@ -3,7 +3,6 @@ import 'package:beunique_ecommerce/features/home_screen/provider/home_provider.d
 import 'package:beunique_ecommerce/utils/font_class.dart';
 import 'package:beunique_ecommerce/utils/responsive.dart';
 import 'package:beunique_ecommerce/utils/utility_class.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
